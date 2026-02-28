@@ -32,7 +32,10 @@
       "Bash(node_modules/.bin/next build)",
       "Bash(npx next build)",
       "Bash(git add app/globals.css components/landing/LandingPage.jsx components/ui/StatCard.jsx)",
-      "Bash(git add .gitignore .claude/launch.json .claude/settings.local.json)"
+      "Bash(git add .gitignore .claude/launch.json .claude/settings.local.json)",
+      "Bash(git add components/landing/LandingPage.jsx)",
+      "Bash(curl -s \"http://127.0.0.1:3000/_next/static/css/app/layout.css\")",
+      "Bash(curl -s \"http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1772320607779\")"
     ]
   }
 }
