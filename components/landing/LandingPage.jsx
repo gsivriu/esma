@@ -1010,9 +1010,35 @@ export default function LandingPage() {
       <footer id="contact" className="py-14">
         <Container className="space-y-10">
           <div className="border-t border-[var(--color-border)] pt-8">
-            <div className="mx-auto grid max-w-6xl gap-x-14 gap-y-10 text-left grid-cols-2 lg:grid-cols-4">
+            {/* Mobile: only Conectare + Legal */}
+            <div className="mx-auto grid max-w-6xl gap-x-14 gap-y-10 text-left grid-cols-2 lg:hidden">
+              {FOOTER_LINK_GROUPS.filter((g) => !g.mobileHidden).map((group) => (
+                <div key={group.title} className="space-y-4">
+                  <h3 className="font-body text-base leading-[1.7] font-display font-medium text-[var(--color-text)]">
+                    {group.title}
+                  </h3>
+                  <div className="space-y-3">
+                    {group.links.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        onClick={() => { if (item.href.startsWith('/')) removeSnapClasses(); }}
+                        target={item.external ? "_blank" : undefined}
+                        rel={item.external ? "noreferrer" : undefined}
+                        className="focus-ring font-body text-sm leading-[1.65] block text-[var(--color-text-muted)] transition-colors duration-200 hover:text-[var(--color-text)]"
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop: all 4 columns */}
+            <div className="mx-auto hidden lg:grid max-w-6xl gap-x-14 gap-y-10 text-left lg:grid-cols-4">
               {FOOTER_LINK_GROUPS.map((group) => (
-                <div key={group.title} className={`space-y-4${group.mobileHidden ? " hidden lg:block" : ""}`}>
+                <div key={group.title} className="space-y-4">
                   <h3 className="font-body text-base leading-[1.7] font-display font-medium text-[var(--color-text)]">
                     {group.title}
                   </h3>
