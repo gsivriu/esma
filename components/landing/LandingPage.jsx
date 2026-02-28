@@ -106,6 +106,7 @@ const PRESS = [
 const FOOTER_LINK_GROUPS = [
   {
     title: "Navigare",
+    mobileHidden: true,
     links: [
       { label: "Acasă", href: "#acasa" },
       { label: "Despre noi", href: "/despre-noi" },
@@ -114,6 +115,7 @@ const FOOTER_LINK_GROUPS = [
   },
   {
     title: "Resurse",
+    mobileHidden: true,
     links: [
       { label: "Ce oferim", href: "#ce-oferim" },
       { label: "Amploarea fenomenului", href: "#amploare-fenomen" },
@@ -1008,9 +1010,9 @@ export default function LandingPage() {
       <footer id="contact" className="py-14">
         <Container className="space-y-10">
           <div className="border-t border-[var(--color-border)] pt-8">
-            <div className="mx-auto grid max-w-6xl gap-x-14 gap-y-10 text-left sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mx-auto grid max-w-6xl gap-x-14 gap-y-10 text-left grid-cols-2 lg:grid-cols-4">
               {FOOTER_LINK_GROUPS.map((group) => (
-                <div key={group.title} className="space-y-4">
+                <div key={group.title} className={`space-y-4${group.mobileHidden ? " hidden md:block" : ""}`}>
                   <h3 className="font-body text-base leading-[1.7] font-display font-medium text-[var(--color-text)]">
                     {group.title}
                   </h3>
