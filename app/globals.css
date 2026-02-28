@@ -50,7 +50,7 @@
   --section-space: clamp(4rem, 10vw, 7.5rem);
   --section-space-tight: clamp(3.25rem, 7vw, 5.5rem);
   --section-pt-inner: clamp(2.75rem, 7vh, 5.5rem);
-  --card-padding: clamp(1.5rem, 3vw, 2.5rem);
+  --card-padding: clamp(0.5rem, 3vw, 2.5rem);
   --grid-gap: clamp(1rem, 2.5vw, 2rem);
 }
 
@@ -351,7 +351,7 @@ a {
 
 .grid-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--grid-gap);
 }
 
@@ -370,12 +370,12 @@ a {
 .grid-vision {
   display: grid;
   align-items: center;
-  gap: clamp(2.5rem, 5vw, 3.5rem);
+  gap: clamp(1rem, 5vw, 3.5rem);
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 48rem) {
   .grid-vision {
-    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.92fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
   }
 }
 

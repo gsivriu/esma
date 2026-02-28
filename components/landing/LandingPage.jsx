@@ -160,6 +160,7 @@ export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showHeader, setShowHeader] = useState(false);
   const [statsCountRunId, setStatsCountRunId] = useState(0);
+  const [pressIndex, setPressIndex] = useState(0);
   const [wordmarkLayout, setWordmarkLayout] = useState({
     sX: 0,
     mX: 0,
@@ -379,6 +380,13 @@ export default function LandingPage() {
       }
     };
   }, [wordmarkTracking]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPressIndex((prev) => (prev + 1) % PRESS.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
 
   const wordmarkTextStyle = {
     fontFamily:
@@ -692,7 +700,7 @@ export default function LandingPage() {
 
               <div
                 data-viziune-card-source-wrap
-                className="relative z-20 flex w-full justify-center [contain:layout_paint_style] [transform:translateZ(0)] [backface-visibility:hidden] [will-change:transform,opacity] lg:justify-end"
+                className="hidden md:flex relative z-20 w-full justify-center [contain:layout_paint_style] [transform:translateZ(0)] [backface-visibility:hidden] [will-change:transform,opacity] lg:justify-end"
               >
                 <div
                   data-viziune-card-source
@@ -779,19 +787,19 @@ export default function LandingPage() {
                 />
               </div>
 
-              <div data-offer-stack data-stagger-group className="grid md:grid-cols-3 gap-6 w-full">
+              <div data-offer-stack data-stagger-group className="grid grid-cols-3 gap-3 md:gap-6 w-full">
                 {OFFER_PILLARS.map((item) => (
                   <Card
                     key={item.title}
                     data-offer-card
                     data-stagger-item
                     tabIndex={0}
-                    className="!rounded-2xl !p-10 h-full transition-shadow duration-300 hover:shadow-lg flex flex-col items-center justify-center gap-4 text-center"
+                    className="!rounded-2xl !p-3 md:!p-10 h-full transition-shadow duration-300 hover:shadow-lg flex flex-col items-center justify-center gap-2 md:gap-4 text-center"
                   >
-                    <h3 className="font-display text-xl md:text-2xl font-medium leading-snug mb-4 text-[var(--color-text)]">
+                    <h3 className="font-display text-[0.7rem] md:text-2xl font-medium leading-snug mb-1 md:mb-4 text-[var(--color-text)]">
                       {item.title}
                     </h3>
-                    <p className="font-[var(--font-body)] text-sm leading-relaxed text-[var(--color-text-muted)]">
+                    <p className="font-[var(--font-body)] text-[0.55rem] md:text-sm leading-relaxed text-[var(--color-text-muted)] hidden md:block">
                       {item.text}
                     </p>
                   </Card>
@@ -910,10 +918,42 @@ export default function LandingPage() {
               />
             </div>
 
-            <div className="grid-stats" data-stagger-group>
+            {/* Mobile: carousel */}
+            <div className="md:hidden">
+              <div className="overflow-hidden">
+                <div
+                  className="flex transition-transform duration-700 ease-in-out"
+                  style={{ transform: `translateX(-${pressIndex * 100}%)` }}
+                >
+                  {PRESS.map((item) => (
+                    <div key={item.source} className="w-full flex-shrink-0">
+                      <Card className="space-y-5 text-center">
+                        <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)]">&ldquo;{item.text}&rdquo;</p>
+                        <p className="font-body text-xs font-medium tracking-[0.12em] uppercase font-semibold text-[var(--color-text)]">
+                          {item.source}
+                        </p>
+                      </Card>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="flex justify-center gap-2 mt-5">
+                {PRESS.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setPressIndex(i)}
+                    aria-label={`Slide ${i + 1}`}
+                    className={['h-1.5 rounded-full transition-all duration-300', i === pressIndex ? 'w-6 bg-[var(--color-accent)]' : 'w-1.5 bg-[var(--color-border)]'].join(' ')}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Desktop: grid */}
+            <div className="hidden md:grid grid-stats" data-stagger-group>
               {PRESS.map((item) => (
                 <Card key={item.source} data-stagger-item className="space-y-5 text-center">
-                  <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)]">“{item.text}”</p>
+                  <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)]">&ldquo;{item.text}&rdquo;</p>
                   <p className="font-body text-xs font-medium tracking-[0.12em] uppercase font-semibold text-[var(--color-text)]">
                     {item.source}
                   </p>
