@@ -1012,7 +1012,7 @@ export default function LandingPage() {
           <div className="border-t border-[var(--color-border)] pt-8">
             <div className="mx-auto grid max-w-6xl gap-x-14 gap-y-10 text-left grid-cols-2 lg:grid-cols-4">
               {FOOTER_LINK_GROUPS.map((group) => (
-                <div key={group.title} className={`space-y-4${group.mobileHidden ? " hidden md:block" : ""}`}>
+                <div key={group.title} className={`space-y-4${group.mobileHidden ? " hidden lg:block" : ""}`}>
                   <h3 className="font-body text-base leading-[1.7] font-display font-medium text-[var(--color-text)]">
                     {group.title}
                   </h3>
