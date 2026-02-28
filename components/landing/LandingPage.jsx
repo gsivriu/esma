@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import LandingAnimations from "./LandingAnimations";
@@ -531,63 +532,103 @@ export default function LandingPage() {
               <button
                 type="button"
                 className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text)] transition-colors hover:bg-[var(--color-surface-strong)] lg:hidden"
-                aria-label={mobileMenuOpen ? "Inchide meniul" : "Deschide meniul"}
-                aria-controls="mobile-navigation"
+                aria-label="Deschide meniul"
                 aria-expanded={mobileMenuOpen}
-                onClick={() => setMobileMenuOpen((open) => !open)}
+                onClick={() => setMobileMenuOpen(true)}
               >
                 <span className="relative block h-4 w-5">
-                  <span
-                    className={`absolute left-0 top-0.5 h-[2px] w-5 rounded-full bg-current transition-transform duration-300 ${
-                      mobileMenuOpen ? "translate-y-[6px] rotate-45" : ""
-                    }`}
-                  />
-                  <span
-                    className={`absolute left-0 top-[7px] h-[2px] w-5 rounded-full bg-current transition-opacity duration-200 ${
-                      mobileMenuOpen ? "opacity-0" : "opacity-100"
-                    }`}
-                  />
-                  <span
-                    className={`absolute left-0 top-[13px] h-[2px] w-5 rounded-full bg-current transition-transform duration-300 ${
-                      mobileMenuOpen ? "-translate-y-[6px] -rotate-45" : ""
-                    }`}
-                  />
+                  <span className="absolute left-0 top-0.5 h-[2px] w-5 rounded-full bg-current" />
+                  <span className="absolute left-0 top-[7px] h-[2px] w-5 rounded-full bg-current" />
+                  <span className="absolute left-0 top-[13px] h-[2px] w-5 rounded-full bg-current" />
                 </span>
               </button>
             </div>
           </div>
 
-          <div
-            id="mobile-navigation"
-            className={`grid transition-[grid-template-rows,opacity,padding] duration-300 ease-out lg:hidden ${
-              mobileMenuOpen ? "grid-rows-[1fr] pb-2 pt-2 opacity-100" : "grid-rows-[0fr] opacity-0"
-            } ${mobileMenuOpen ? "" : "pointer-events-none"}`}
-          >
-            <div className="overflow-hidden">
-              <nav className="font-body text-sm leading-[1.65] flex flex-col gap-2 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-strong)] p-2 text-[var(--color-text-muted)]">
-                {NAV_LINKS.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => { closeMobileMenu(); if (item.href.startsWith('/')) removeSnapClasses(); }}
-                    className="focus-ring rounded-full px-3 py-2 text-left transition-colors hover:bg-[var(--color-surface-strong)] hover:text-[var(--color-text)]"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-                <Button
-                  href="/implica-te#doneaza"
-                  variant="primary"
-                  className="mt-1 justify-center sm:hidden !rounded-full"
-                  onClick={() => { closeMobileMenu(); removeSnapClasses(); }}
-                >
-                  Donează
-                </Button>
-              </nav>
-            </div>
-          </div>
         </Container>
       </header>
+
+      {/* ── Full-screen mobile menu ── */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            className="fixed inset-0 z-[60] flex flex-col bg-[#F5F0E8] lg:hidden"
+            initial={{ clipPath: "circle(0% at calc(100% - 32px) 32px)" }}
+            animate={{ clipPath: "circle(150% at calc(100% - 32px) 32px)" }}
+            exit={{
+              clipPath: "circle(0% at calc(100% - 32px) 32px)",
+              transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+            }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {/* Top bar */}
+            <div className="flex items-center justify-between px-6 py-5">
+              <a
+                href="#acasa"
+                onClick={closeMobileMenu}
+                className="font-display text-4xl font-medium inline-flex items-center gap-2 leading-none text-[var(--color-text)]"
+              >
+                <LogoESME className="h-[0.94em] w-auto shrink-0 [height:1.5cap]" aria-hidden="true" />
+                <span className="tracking-[0.06em]">ESME</span>
+              </a>
+              <button
+                type="button"
+                onClick={closeMobileMenu}
+                aria-label="Închide meniul"
+                className="focus-ring -mr-1 p-2 text-[var(--color-text)]"
+              >
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+                  <path d="M2 2l18 18M20 2L2 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Nav links */}
+            <nav className="flex flex-col flex-1 justify-center gap-8 px-6">
+              {NAV_LINKS.map((item, i) => (
+                <motion.div
+                  key={item.href}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <Link
+                    href={item.href}
+                    onClick={() => { closeMobileMenu(); if (item.href.startsWith("/")) removeSnapClasses(); }}
+                    className="group flex items-baseline gap-4"
+                  >
+                    <span className="w-5 shrink-0 select-none font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7A6A5A]">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="relative font-display text-[clamp(2.5rem,10vw,4rem)] font-light leading-none text-[var(--color-text)] group-hover:italic">
+                      {item.label}
+                      <span
+                        aria-hidden="true"
+                        className="absolute -bottom-1 left-0 h-px w-0 bg-[#C17F3E] transition-all duration-300 group-hover:w-full"
+                      />
+                    </span>
+                  </Link>
+                </motion.div>
+              ))}
+            </nav>
+
+            {/* Bottom */}
+            <div className="flex flex-col items-start gap-3 px-6 pb-10">
+              <Button
+                href="/implica-te"
+                variant="primary"
+                className="!rounded-full h-10"
+                onClick={() => { closeMobileMenu(); removeSnapClasses(); }}
+              >
+                Donează
+              </Button>
+              <p className="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7A6A5A]">
+                Sprijin · Siguranță · Speranță
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <main className="text-center">
         <section ref={heroSectionRef} id="acasa" className="snap-section hero-snap py-0">
