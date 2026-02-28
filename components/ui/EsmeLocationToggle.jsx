@@ -1,0 +1,177 @@
+"use client";
+
+import { useEffect, useLayoutEffect, useRef } from "react";
+import { gsap } from "gsap";
+
+const ROTATION_DURATION = 1.02;
+const OFF_POSITION = { x: 13, y: 16 };
+const ON_POSITION = { x: 89, y: 16 };
+const ARC_DEPTH = 54;
+
+export default function EsmeLocationToggle({
+  value,
+  onChange,
+  offValue = "constanta",
+  onValue = "alt-oras",
+  offLabel = "Sunt din Constanța",
+  onLabel = "Sunt din alt oraș",
+  ariaLabel = "Selectează localitatea",
+  className = "",
+}) {
+  const logoRef = useRef(null);
+  const timelineRef = useRef(null);
+  const hasInitialPosition = useRef(false);
+  const isInitialRender = useRef(true);
+  const isOn = value === onValue;
+
+  useLayoutEffect(() => {
+    if (!logoRef.current || hasInitialPosition.current) {
+      return;
+    }
+
+    gsap.set(logoRef.current, {
+      x: isOn ? ON_POSITION.x : OFF_POSITION.x,
+      y: isOn ? ON_POSITION.y : OFF_POSITION.y,
+      rotate: 0,
+      transformOrigin: "center center",
+      transformBox: "fill-box",
+      force3D: false,
+    });
+    hasInitialPosition.current = true;
+  }, [isOn]);
+
+  useEffect(() => {
+    if (!logoRef.current) {
+      return;
+    }
+
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
+    }
+
+    timelineRef.current?.kill();
+    gsap.killTweensOf(logoRef.current);
+
+    const startPosition = isOn ? OFF_POSITION : ON_POSITION;
+    const endPosition = isOn ? ON_POSITION : OFF_POSITION;
+    const rotationDirection = isOn ? 1 : -1;
+    const motionState = { progress: 0 };
+    const setX = gsap.quickSetter(logoRef.current, "x", "px");
+    const setY = gsap.quickSetter(logoRef.current, "y", "px");
+    const setRotate = gsap.quickSetter(logoRef.current, "rotate", "deg");
+
+    gsap.set(logoRef.current, {
+      rotate: 0,
+      transformOrigin: "center center",
+      transformBox: "fill-box",
+      force3D: false,
+    });
+
+    timelineRef.current = gsap.to(motionState, {
+      progress: 1,
+      duration: ROTATION_DURATION,
+      ease: "power3.inOut",
+      onUpdate: () => {
+        const t = motionState.progress;
+        const x = startPosition.x + (endPosition.x - startPosition.x) * t;
+        const y =
+          startPosition.y +
+          (endPosition.y - startPosition.y) * t +
+          Math.sin(Math.PI * t) * ARC_DEPTH;
+
+        setX(x);
+        setY(y);
+        setRotate(rotationDirection * 360 * t);
+      },
+      onComplete: () => {
+        gsap.set(logoRef.current, {
+          x: endPosition.x,
+          y: endPosition.y,
+          rotate: 0,
+          transformOrigin: "center center",
+          transformBox: "fill-box",
+          force3D: false,
+        });
+      },
+    });
+  }, [isOn]);
+
+  useEffect(() => {
+    return () => {
+      timelineRef.current?.kill();
+    };
+  }, []);
+
+  return (
+    <div className={`flex flex-col items-center gap-3 ${className}`}>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={isOn}
+        aria-label={ariaLabel}
+        onClick={() => onChange(isOn ? offValue : onValue)}
+        className="focus-ring relative h-[126px] w-[154px]"
+      >
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 154 126"
+          xmlns="http://www.w3.org/2000/svg"
+          className="pointer-events-none absolute inset-0 h-full w-full"
+        >
+          <path
+            d="M77 114C74 111 70 108 66 104C43 83 24 66 15 50C11 43 9 36 9 29C9 14 20 4 35 4C47 4 58 10 65 21L77 37L89 21C96 10 107 4 119 4C134 4 145 14 145 29C145 36 143 43 139 50C130 66 111 83 88 104C84 108 80 111 77 114Z"
+            fill="rgba(45,35,26,0.08)"
+          />
+        </svg>
+
+        <svg
+          ref={logoRef}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="217.97 265.56 588.44 444.13"
+          className="absolute left-0 top-0 w-[52px] text-[var(--color-text)] [shape-rendering:geometricPrecision]"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M434.26,675.73c20.84,8.99,41.54,17.27,63.2,22.89.8.21,1.6.48,2.37.78,1.41.55,3.05,1.1,2.85,2.97-.2,1.88-2,2.12-3.44,2.29-9.81,1.15-19.59.87-29.39-.34-32.24-3.99-62.69-13.89-91.53-28.53-20.03-10.17-37.29-24.07-52.55-40.75-15.33-16.76-25.97-35.85-31.55-57.66-6.82-26.67-4.06-52.51,10.7-76,8.81-14.02,22.02-23.98,36.42-32.04,15.38-8.61,31.58-15.79,45.66-26.67,13.75-10.63,26.02-22.83,38.38-34.98,13.62-13.38,26.77-27.22,43.28-37.47,28.43-17.64,65.28-15.75,90.28,6.27,23.01,20.27,29.05,50.18,14.82,78.97-7.2,14.57-16.47,27.41-28.08,38.53-7.69,7.36-16,14.07-25.51,19.11-11.15,5.91-27.24,1.22-35.71-10.7-5.19-7.32-7.3-16-10.22-24.3-.42-1.21-.25-2.44.88-3.11,1.7-1.01,2.72.39,3.85,1.37,8.26,7.16,17.06,13.18,28.05,15.6,7.22,1.59,13.91,1.19,20.2-2.7,20.98-12.97,33.76-31.68,38.59-55.79,1.1-5.49,3-11.01,1.23-16.76-.53-1.72-.59-3.65-2.29-4.72-1.43-.33-2.4.45-3.13,1.31-11.96,14.04-27.72,22.19-44.62,28.32-22.6,8.2-45.82,13.9-69.76,16.76-21.82,2.6-43.68,5.19-65.29,9.11-19.45,3.53-38.16,9.9-52.92,24.06-14.86,14.25-19.21,32.24-17.34,52.11,2.1,22.41,12.61,41.12,26.17,58.44,17.49,22.32,39.43,39.48,63.06,54.73,10.65,6.87,21.74,12.95,33.33,18.91Z" />
+          <path d="M368.15,480.72c20.1-1.8,36.06,12.58,44.05,32.64,5.05,12.67,8.35,25.95,12.07,39.09,6.84,24.12,17.35,46.2,35.61,64.32,18.13,18,40.15,27.97,64.1,35.01,22.63,6.66,45.76,8.53,69.14,8.09,15.44-.29,30.95-.45,45.83-5.81,2.51-.9,5.85-1.43,8.32,1.14-.62,2.81-3.04,3.13-4.91,3.95-19.74,8.65-40.53,13.06-61.88,15.01-39.7,3.62-78.32-1.07-115.98-14.52-30.72-10.97-58.1-27.25-82.1-49.23-22.12-20.26-38.1-44.45-44.93-73.94-2.72-11.75-3.45-23.84,1.38-35.41,5.31-12.73,15.01-19.53,29.31-20.34Z" />
+          <path d="M604.68,471.43c30.97-3.91,58.46,3.16,82.93,22.21,25.71,20.01,40.69,46.08,45.91,78.05,4.58,28.07-1.62,53.35-18.52,76.34-13.78,18.75-32.39,30.85-52.91,40.53-16.34,7.71-33.46,13.17-51.33,15.97-20.27,3.18-40.63,5.16-61.17,2.69-2.22-.27-5.38.21-5.32-3.03.06-3.02,3.07-2.93,5.38-3.17,31.52-3.28,61.94-10.41,90.28-25.17,18.29-9.53,35.55-20.47,49.31-36.07,18.68-21.19,28.31-45.74,25.48-74.28-1.37-13.85-7.08-26.44-14.63-37.88-15.13-22.93-35.88-38.86-62.7-45.64-11.91-3.01-24.39-3.1-36.73-2.31-4.48.29-8.94.8-13.42,1.2-1.54.14-3.01.06-4.61-2.3,6.51-4.67,14.19-5.52,22.05-7.12Z" />
+          <path d="M640.66,642.8c-16.6,7.62-34.12,8.6-51.52,10.1-6.01.52-11.96-.34-17.84-1.6-1.93-.41-4.37-.51-4.45-3.11-.08-2.61,2.41-2.84,4.26-3.44,10.65-3.44,20.96-7.71,30.28-13.92,13.13-8.76,22.49-21.08,31.13-34.03,5.45-8.16,10.13-16.83,16.46-24.4,7.06-8.44,15.39-14.69,26.67-16.02,10.52-1.24,20.46,3.77,24.94,12.68,2.96,5.89,1.91,12.1.64,18.1-2.36,11.13-8.77,20.09-16.66,27.9-12.47,12.34-27.41,20.95-43.91,27.75Z" />
+          <path d="M629.7,510.43c10.8,19.21,8.65,37.93-5.76,52.52-19.82,20.07-49.27,13.19-62.75-5.64-18.03-25.19-4.78-58.47,25.51-65.01,15.11-3.26,33.43,4.37,43,18.13Z" />
+          <path d="M508.05,636.15c-3.04-1.25-7.06-.45-7.99-3.96-.96-3.65,3.08-4.66,4.96-6.81,11.8-13.48,26.06-23.67,42.11-31.46,17.31-8.4,35.8-11.06,54.78-11.33,6.16-.09,12.33-.01,18.49.03,4.91.03,5.94,1.58,3.19,5.64-6.76,9.98-14.78,18.95-24.15,26.48-13.1,10.52-27.49,18.76-44.34,21.82-15.56,2.82-31.11,2.82-47.04-.41Z" />
+          <path d="M413.49,344.88c-33.9,12.25-66.92,25.62-99.6,39.88-21.69,9.47-42.98,19.73-64.35,29.86-9.2,4.36-18.69,4.15-28.35,2.29-.64-.12-1.25-.45-1.84-.75-.44-.22-.83-.54-1.38-.92,1.08-3.72,4.04-4.94,6.78-6.34,36.4-18.45,72.73-37.02,109.22-55.29,53.91-26.99,108.03-53.55,161.83-80.76,14.41-7.29,26.89-3.37,39.86,3.12,48.99,24.54,98.13,48.79,147.09,73.38,39.44,19.81,78.71,39.96,118.05,59.96,1.04.53,2.07,1.08,3.05,1.71,1.27.83,2.56,1.75,2.1,3.58-.38,1.52-1.7,2.05-3.01,2.29-9.12,1.66-18.23,2.34-26.98-1.65-24.23-11.08-48.25-22.64-72.67-33.27-30.08-13.08-60.3-25.87-91.32-36.63-20.77-7.2-41.6-14.17-62.89-19.75-23.76-6.23-47.35-6.1-71.06.07-21.6,5.63-42.89,12.31-64.52,19.2Z" />
+        </svg>
+      </button>
+
+      <div className="font-body text-base leading-[1.7] flex items-center font-medium">
+        <button
+          type="button"
+          onClick={() => onChange(offValue)}
+          aria-pressed={!isOn}
+          className={`focus-ring rounded px-4 py-1.5 transition-all duration-300 ${
+            !isOn
+              ? "text-[var(--color-text)]"
+              : "text-[var(--color-text-muted)] opacity-40 hover:opacity-70"
+          }`}
+        >
+          {offLabel}
+        </button>
+        <span aria-hidden="true" className="text-[var(--color-text-muted)] opacity-30">
+          |
+        </span>
+        <button
+          type="button"
+          onClick={() => onChange(onValue)}
+          aria-pressed={isOn}
+          className={`focus-ring rounded px-4 py-1.5 transition-all duration-300 ${
+            isOn
+              ? "text-[var(--color-text)]"
+              : "text-[var(--color-text-muted)] opacity-40 hover:opacity-70"
+          }`}
+        >
+          {onLabel}
+        </button>
+      </div>
+    </div>
+  );
+}
