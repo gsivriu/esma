@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Star } from "lucide-react";
 import Image from "next/image";
 import LandingAnimations from "./LandingAnimations";
 import viziuneImage from "../viziune.jpg";
@@ -561,11 +562,23 @@ export default function LandingPage() {
               <div className="press-carousel-track">
                 {[...PRESS, ...PRESS].map((item, i) => (
                   <div key={i} className="flex-shrink-0 w-[85vw] md:w-[420px] px-2">
-                    <Card className="space-y-5 text-center">
-                      <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)]">&ldquo;{item.text}&rdquo;</p>
-                      <p className="font-body text-xs font-medium tracking-[0.12em] uppercase font-semibold text-[var(--color-text)]">
-                        {item.source}
-                      </p>
+                    <Card className="text-left p-8 flex flex-col justify-between min-h-[220px]">
+                      <div>
+                        <div className="flex gap-1 mb-6">
+                          {Array.from({ length: 5 }).map((_, s) => (
+                            <Star key={s} className="w-3.5 h-3.5 fill-foreground text-foreground" />
+                          ))}
+                        </div>
+                        <p className="font-display text-lg font-light italic leading-relaxed text-[var(--color-text)]">
+                          {item.text}
+                        </p>
+                      </div>
+                      <div className="mt-6">
+                        <div className="w-10 h-px bg-amber-700/40 mb-4" />
+                        <p className="font-body text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-text)]">
+                          {item.source}
+                        </p>
+                      </div>
                     </Card>
                   </div>
                 ))}
