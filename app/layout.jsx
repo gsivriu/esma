@@ -33,7 +33,7 @@ const numbersFont = Fraunces({
 });
 
 export const metadata = {
-  title: "ESME | Sprijin, siguranță, comunitate",
+  title: "esme | Sprijin, siguranță, comunitate",
   description:
     "ESME este o asociație dedicată sprijinirii victimelor abuzului domestic prin implicarea activă a comunității.",
 };

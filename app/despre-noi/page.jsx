@@ -4,7 +4,7 @@ import LogoESME from "../../components/LogoESME";
 import ScrollReveal from "../../components/ui/ScrollReveal";
 
 export const metadata = {
-  title: "Despre noi | ESME",
+  title: "Despre noi | esme",
   description:
     "Povestea noastră: cum s-a născut ESME și ce ne propunem să facem pentru victimele violenței domestice.",
 };
