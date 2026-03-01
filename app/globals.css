@@ -54,6 +54,12 @@
   --grid-gap: clamp(1rem, 2.5vw, 2rem);
 }
 
+@media (max-width: 47.9375rem) {
+  :root {
+    --header-h: 40px;
+  }
+}
+
 @media (min-width: 48rem) {
   :root {
     --banner-height: 4.5rem;

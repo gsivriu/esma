@@ -437,11 +437,11 @@ export default function LandingPage() {
             : "-translate-y-full opacity-0"
         }`}
       >
-        <Container className="py-3">
-          <div className="flex min-h-[4.5rem] items-center justify-between gap-4">
+        <Container className="py-1 md:py-3">
+          <div className="flex min-h-[3rem] md:min-h-[4.5rem] items-center justify-between gap-4">
             <a
               href="#acasa"
-              className="focus-ring font-display text-4xl md:text-5xl font-medium inline-flex items-center gap-1 leading-none text-[var(--color-text)]"
+              className="focus-ring font-display text-4xl md:text-5xl font-medium inline-flex items-center gap-1 leading-none min-h-[44px] text-[var(--color-text)]"
               onClick={closeMobileMenu}
             >
               <LogoESME className="h-[0.94em] w-auto shrink-0 [height:1.5cap]" aria-hidden="true" />
@@ -705,8 +705,8 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section id="despre-noi" className="snap-section section-space">
-          <Container className="pt-[var(--section-pt-inner)]">
+        <section id="despre-noi" className="snap-section section-space !pt-12 md:!pt-[var(--section-space)]">
+          <Container className="pt-0 md:pt-[var(--section-pt-inner)]">
             <div className="grid-vision">
               <div className="space-y-8 text-left" data-stagger-group>
                 <div data-reveal data-vision-title>

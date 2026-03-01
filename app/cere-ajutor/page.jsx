@@ -103,11 +103,11 @@ export default function CereAjutor() {
     <div className="min-h-screen bg-[var(--color-surface)]">
       {/* ── Navbar ── */}
       <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg-glass)] backdrop-blur-[2px]">
-        <Container className="py-3">
+        <Container className="py-2 md:py-3">
           <div className="flex min-h-[var(--header-h)] items-center justify-between gap-4">
             <Link
               href="/"
-              className="focus-ring font-display text-4xl md:text-5xl font-medium inline-flex items-center gap-2 leading-none text-[var(--color-text)]"
+              className="focus-ring font-display text-4xl md:text-5xl font-medium inline-flex items-center gap-2 leading-none min-h-[44px] text-[var(--color-text)]"
             >
               <LogoESME className="h-[0.72em] w-auto shrink-0 [height:1.5cap]" aria-hidden="true" />
               <span className="inline-block tracking-[0.06em]">ESME</span>
