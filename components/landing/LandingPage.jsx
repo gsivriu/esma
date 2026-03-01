@@ -556,11 +556,11 @@ export default function LandingPage() {
               />
             </div>
 
-            {/* Mobile: infinite auto-scroll carousel */}
-            <div className="md:hidden overflow-hidden -mx-[var(--container-gutter)]">
+            {/* Carousel — all screen sizes */}
+            <div className="overflow-hidden -mx-[var(--container-gutter)]">
               <div className="press-carousel-track">
                 {[...PRESS, ...PRESS].map((item, i) => (
-                  <div key={i} className="flex-shrink-0 w-[85vw] px-3">
+                  <div key={i} className="flex-shrink-0 w-[85vw] md:w-[420px] px-3">
                     <Card className="space-y-5 text-center">
                       <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)]">&ldquo;{item.text}&rdquo;</p>
                       <p className="font-body text-xs font-medium tracking-[0.12em] uppercase font-semibold text-[var(--color-text)]">
@@ -570,18 +570,6 @@ export default function LandingPage() {
                   </div>
                 ))}
               </div>
-            </div>
-
-            {/* Desktop: grid */}
-            <div className="hidden md:grid grid-stats" data-stagger-group>
-              {PRESS.map((item) => (
-                <Card key={item.source} data-stagger-item className="space-y-5 text-center">
-                  <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)]">&ldquo;{item.text}&rdquo;</p>
-                  <p className="font-body text-xs font-medium tracking-[0.12em] uppercase font-semibold text-[var(--color-text)]">
-                    {item.source}
-                  </p>
-                </Card>
-              ))}
             </div>
           </Container>
         </section>
