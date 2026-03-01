@@ -546,7 +546,7 @@ export default function LandingPage() {
             </div>
           </Container>
         </section>
-        <section id="presa" className="snap-section section-space-tight">
+        <section id="presa" className="section-space-tight overflow-x-hidden">
           <Container className="space-y-10">
             <div data-reveal>
               <SectionHeader
