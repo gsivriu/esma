@@ -58,6 +58,26 @@
   :root {
     --header-h: 40px;
   }
+
+  .scrolldown {
+    --sizeX: 15px;
+    --sizeY: 25px;
+  }
+
+  .chevrondown {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+@keyframes carousel-slide {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.press-carousel-track {
+  display: flex;
+  animation: carousel-slide 21s linear infinite;
 }
 
 @media (min-width: 48rem) {

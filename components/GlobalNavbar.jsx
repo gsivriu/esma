@@ -169,7 +169,7 @@ export default function GlobalNavbar() {
                   className="h-[0.94em] w-auto shrink-0 [height:1.5cap]"
                   aria-hidden="true"
                 />
-                <span className="tracking-[0.06em]">ESME</span>
+                <span className="tracking-[0.06em]">esme</span>
               </Link>
               <button
                 type="button"
@@ -215,7 +215,7 @@ export default function GlobalNavbar() {
                     className="group flex items-baseline gap-4"
                   >
                     <span className="w-5 shrink-0" aria-hidden="true" />
-                    <span className="relative font-display text-[clamp(2.5rem,10vw,4rem)] font-light leading-none text-[var(--color-text)] group-hover:italic">
+                    <span className="relative font-display text-[clamp(2.5rem,10vw,4rem)] font-light leading-none text-[var(--color-text)] ">
                       {item.label}
                       <span
                         aria-hidden="true"
@@ -245,7 +245,7 @@ export default function GlobalNavbar() {
                   className="group flex items-baseline gap-4"
                 >
                   <span className="w-5 shrink-0" aria-hidden="true" />
-                  <span className="relative font-display text-[clamp(2.5rem,10vw,4rem)] font-light leading-none text-[#C17F3E] group-hover:italic">
+                  <span className="relative font-display text-[clamp(2.5rem,10vw,4rem)] font-light leading-none text-[#C17F3E] ">
                     Donează
                     <span
                       aria-hidden="true"

@@ -282,7 +282,7 @@ export default function LandingPage() {
 
             <div
               data-reveal
-              className="pointer-events-none absolute inset-x-0 bottom-[clamp(1.25rem,5.5vh,4.25rem)] z-20 flex justify-center"
+              className="pointer-events-none absolute inset-x-0 bottom-8 md:bottom-[clamp(1.25rem,5.5vh,4.25rem)] z-20 flex justify-center"
             >
               <a
                 href="#despre-noi"
@@ -466,7 +466,7 @@ export default function LandingPage() {
                 href="/implica-te#doneaza"
                 onClick={removeSnapClasses}
                 data-stagger-item
-                className="focus-ring inline-flex w-full max-w-none sm:max-w-[220px] min-h-[3.25rem] items-center justify-center rounded-full px-8 py-3.5 text-center text-[0.9375rem] font-medium leading-none shadow-[0_8px_20px_rgba(17,12,8,0.08)] transition-all duration-200 ease-out hover:shadow-[0_12px_26px_rgba(17,12,8,0.14)] sm:min-h-[3.5rem] border border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-surface)] hover:bg-[var(--color-accent-hover)] hover:border-[var(--color-accent-hover)]"
+                className="focus-ring inline-flex w-full max-w-none sm:max-w-[220px] min-h-[3.25rem] items-center justify-center rounded-full px-8 py-3.5 text-center text-[0.9375rem] font-medium leading-none shadow-[0_8px_20px_rgba(17,12,8,0.08)] transition-all duration-200 ease-out hover:shadow-[0_12px_26px_rgba(17,12,8,0.14)] active:opacity-[0.85] active:scale-[0.97] sm:min-h-[3.5rem] border border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-surface)] hover:bg-[var(--color-accent-hover)] hover:border-[var(--color-accent-hover)]"
               >
                 Donează
               </a>
@@ -556,16 +556,20 @@ export default function LandingPage() {
               />
             </div>
 
-            {/* Mobile: stacked cards */}
-            <div className="md:hidden flex flex-col gap-4">
-              {PRESS.map((item) => (
-                <Card key={item.source} className="space-y-5 text-center">
-                  <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)]">&ldquo;{item.text}&rdquo;</p>
-                  <p className="font-body text-xs font-medium tracking-[0.12em] uppercase font-semibold text-[var(--color-text)]">
-                    {item.source}
-                  </p>
-                </Card>
-              ))}
+            {/* Mobile: infinite auto-scroll carousel */}
+            <div className="md:hidden overflow-hidden -mx-[var(--container-gutter)]">
+              <div className="press-carousel-track">
+                {[...PRESS, ...PRESS].map((item, i) => (
+                  <div key={i} className="flex-shrink-0 w-[85vw] px-3">
+                    <Card className="space-y-5 text-center">
+                      <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)]">&ldquo;{item.text}&rdquo;</p>
+                      <p className="font-body text-xs font-medium tracking-[0.12em] uppercase font-semibold text-[var(--color-text)]">
+                        {item.source}
+                      </p>
+                    </Card>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Desktop: grid */}
@@ -587,7 +591,7 @@ export default function LandingPage() {
         <Container className="space-y-10">
           <div className="border-t border-[var(--color-border)] pt-8">
             {/* Mobile: only Conectare + Legal side by side */}
-            <div className="grid gap-x-10 gap-y-8 text-left grid-cols-2 lg:hidden">
+            <div className="grid grid-cols-2 gap-6 text-left max-w-sm mx-auto lg:hidden">
               {FOOTER_LINK_GROUPS.filter((g) => !g.mobileHidden).map((group) => (
                 <div key={group.title} className="space-y-4">
                   <h3 className="font-body text-base leading-[1.7] font-display font-semibold text-[var(--color-text)]">

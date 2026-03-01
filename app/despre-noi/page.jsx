@@ -28,12 +28,12 @@ export default function DespreNoi() {
   return (
     <div className="min-h-screen bg-[var(--color-surface)]">
       <main className="pt-[var(--header-h)]">
-        <section className="pt-24 pb-7 md:pb-10">
+        <section className="pt-8 md:pt-24 pb-7 md:pb-10">
           <Container>
             {/* ── Povestea noastră ── */}
             <div className="mx-auto max-w-4xl text-left sm:text-center">
               <ScrollReveal delay={0}>
-                <p className="font-body text-xs tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-6">
+                <p className="hidden md:block font-body text-xs tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-6">
                   Despre noi
                 </p>
                 <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal leading-tight text-[var(--color-text)]">
@@ -42,7 +42,7 @@ export default function DespreNoi() {
               </ScrollReveal>
 
               <ScrollReveal delay={0.1}>
-                <blockquote className="mt-14 md:mt-16 mx-auto max-w-2xl">
+                <blockquote className="mt-8 md:mt-16 mx-auto max-w-2xl">
                   <p className="font-display text-[clamp(1.3rem,5.5vw,2rem)] italic font-light leading-snug text-[var(--color-text)]">
                     „Nu am crescut într-o casă cu violență. Am crescut cu poveștile
                     ei, spuse târziu. Cu rușinea mamei mele. Cu fraze ca
@@ -52,7 +52,7 @@ export default function DespreNoi() {
               </ScrollReveal>
 
               <ScrollReveal delay={0.2}>
-                <div className="mt-14 md:mt-16 space-y-5 mx-auto max-w-2xl">
+                <div className="mt-8 md:mt-16 space-y-5 mx-auto max-w-2xl">
                   <h2 className="font-display text-xl md:text-2xl font-medium leading-snug text-[var(--color-text)]">
                     Așa s-a născut ESME.
                   </h2>
@@ -67,15 +67,15 @@ export default function DespreNoi() {
               </ScrollReveal>
             </div>
 
-            {/* ── Ce își propune esme ── */}
-            <div className="mt-28 md:mt-40">
+            {/* ── Ce își propune ESME ── */}
+            <div className="mt-16 md:mt-40">
               <ScrollReveal delay={0}>
-                <h2 className="font-display text-2xl md:text-5xl font-medium leading-tight text-left sm:text-center text-[var(--color-text)]">
-                  Ce își propune<br className="hidden md:block" /> esme
+                <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal leading-tight text-left sm:text-center text-[var(--color-text)]">
+                  Ce își propune<br className="hidden md:block" /> ESME
                 </h2>
               </ScrollReveal>
 
-              <div className="grid-services mt-16 sm:mt-20">
+              <div className="grid-services mt-10 sm:mt-20">
                 {PILLARS.map((pillar, i) => (
                   <ScrollReveal key={pillar.title} delay={i * 0.1}>
                     <div className="space-y-4 pt-6">

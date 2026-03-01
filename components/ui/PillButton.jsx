@@ -19,7 +19,7 @@ const VARIANTS = {
 };
 
 const BASE =
-  "focus-ring group relative inline-flex w-full max-w-[220px] min-h-[3.25rem] items-center justify-center rounded-full border px-8 py-3.5 text-center text-[0.9375rem] font-medium leading-none overflow-hidden shadow-[0_8px_20px_rgba(17,12,8,0.08)] transition-shadow duration-200 ease-out hover:shadow-[0_12px_26px_rgba(17,12,8,0.14)] sm:min-h-[3.5rem]";
+  "focus-ring group relative inline-flex w-full max-w-[220px] min-h-[3.25rem] items-center justify-center rounded-full border px-8 py-3.5 text-center text-[0.9375rem] font-medium leading-none overflow-hidden shadow-[0_8px_20px_rgba(17,12,8,0.08)] transition-all duration-200 ease-out hover:shadow-[0_12px_26px_rgba(17,12,8,0.14)] active:opacity-[0.85] active:scale-[0.97] sm:min-h-[3.5rem]";
 
 export default function PillButton({ href, children, className = "", onClick, variant = "dark" }) {
   const rippleRef = useRef(null);

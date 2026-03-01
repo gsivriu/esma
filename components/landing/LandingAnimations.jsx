@@ -106,123 +106,108 @@
         const visionDescription = document.querySelector("[data-vision-description]");
         const visionSourceWrap = document.querySelector("[data-viziune-card-source-wrap]");
         const visionSourceCard = document.querySelector("[data-viziune-card-source]");
-        if (visionSection && visionSourceWrap && visionSourceCard && visionTitle && visionDescription) {
-          const resetVisionToHidden = () => {
-            gsap.set(visionSourceWrap, {
-              x: Math.min(window.innerWidth * 0.56, 720),
-              autoAlpha: 0,
-            });
-            gsap.set(visionSourceCard, { scale: 0.975, rotate: 1.5 });
-            gsap.set(visionTitle, {
-              x: -Math.min(window.innerWidth * 0.38, 500),
-              autoAlpha: 0,
-            });
-            gsap.set(visionDescription, {
-              x: -Math.min(window.innerWidth * 0.32, 420),
-              autoAlpha: 0,
-            });
-          };
+        const refreshAfterAssets = () => ScrollTrigger.refresh();
 
-          gsap.set([visionTitle, visionDescription, visionSourceWrap, visionSourceCard], {
+        if (visionSection && visionTitle && visionDescription) {
+          gsap.set([visionTitle, visionDescription], {
             transformPerspective: 1000,
             force3D: true,
             backfaceVisibility: "hidden",
             willChange: "transform, opacity",
           });
-          resetVisionToHidden();
 
-          const visionEnterTl = gsap.timeline({
-            paused: true,
-            scrollTrigger: {
+          if (isMobile) {
+            // Mobile: y-based reveal (no x slide)
+            gsap.set(visionTitle, { y: revealY, autoAlpha: 0 });
+            gsap.set(visionDescription, { y: revealY, autoAlpha: 0 });
+
+            const mobileVisionTl = gsap.timeline({
+              paused: true,
+              scrollTrigger: {
+                trigger: visionSection,
+                start: "top 80%",
+                toggleActions: "restart none none none",
+                invalidateOnRefresh: true,
+                refreshPriority: 2,
+              },
+            });
+
+            mobileVisionTl
+              .fromTo(visionTitle, { y: revealY, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.05, ease: "power3.out" }, 0)
+              .fromTo(visionDescription, { y: revealY, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.05, ease: "power3.out" }, 0.2);
+
+            ScrollTrigger.create({
               trigger: visionSection,
-              start: "top 80%",
-              toggleActions: "restart none none none",
+              start: "top 102%",
               invalidateOnRefresh: true,
-              refreshPriority: 2,
-            },
-          });
+              onLeaveBack: () => {
+                gsap.set([visionTitle, visionDescription], { y: revealY, autoAlpha: 0 });
+                mobileVisionTl.pause(0);
+              },
+            });
+          } else if (visionSourceWrap && visionSourceCard) {
+            // Desktop: x-based slide animation
+            gsap.set([visionSourceWrap, visionSourceCard], {
+              transformPerspective: 1000,
+              force3D: true,
+              backfaceVisibility: "hidden",
+              willChange: "transform, opacity",
+            });
 
-          visionEnterTl
-            .fromTo(
-              visionSourceWrap,
-              {
-                x: () => Math.min(window.innerWidth * 0.56, 720),
-                autoAlpha: 0,
-              },
-              {
-                x: 0,
-                autoAlpha: 1,
-                duration: 1.45,
-                ease: "power3.out",
-              },
-              0.15
-            )
-            .fromTo(
-              visionSourceCard,
-              { scale: 0.975, rotate: 1.5 },
-              {
-                scale: 1,
-                rotate: 0,
-                duration: 1.52,
-                ease: "power3.out",
-              },
-              0.15
-            )
-            .fromTo(
-              visionTitle,
-              {
-                x: () => -Math.min(window.innerWidth * 0.38, 500),
-                autoAlpha: 0,
-              },
-              {
-                x: 0,
-                autoAlpha: 1,
-                duration: 1.42,
-                ease: "power3.out",
-              },
-              0.25
-            )
-            .fromTo(
-              visionDescription,
-              {
-                x: () => -Math.min(window.innerWidth * 0.32, 420),
-                autoAlpha: 0,
-              },
-              {
-                x: 0,
-                autoAlpha: 1,
-                duration: 1.40,
-                ease: "power3.out",
-              },
-            0.45
-          );
+            const resetVisionToHidden = () => {
+              gsap.set(visionSourceWrap, { x: Math.min(window.innerWidth * 0.56, 720), autoAlpha: 0 });
+              gsap.set(visionSourceCard, { scale: 0.975, rotate: 1.5 });
+              gsap.set(visionTitle, { x: -Math.min(window.innerWidth * 0.38, 500), autoAlpha: 0 });
+              gsap.set(visionDescription, { x: -Math.min(window.innerWidth * 0.32, 420), autoAlpha: 0 });
+            };
+            resetVisionToHidden();
 
-          ScrollTrigger.create({
-            trigger: visionSection,
-            start: "top 102%",
-            invalidateOnRefresh: true,
-            onLeaveBack: () => {
-              resetVisionToHidden();
-              visionEnterTl.pause(0);
-            },
-          });
+            const visionEnterTl = gsap.timeline({
+              paused: true,
+              scrollTrigger: {
+                trigger: visionSection,
+                start: "top 80%",
+                toggleActions: "restart none none none",
+                invalidateOnRefresh: true,
+                refreshPriority: 2,
+              },
+            });
 
-          const refreshAfterAssets = () => ScrollTrigger.refresh();
-          const visionImages = Array.from(document.querySelectorAll("[data-viziune-image]"));
-          const pendingImageHandlers = [];
-          visionImages.forEach((image) => {
-            if (image.complete) return;
-            const onLoad = () => refreshAfterAssets();
-            image.addEventListener("load", onLoad, { once: true });
-            pendingImageHandlers.push({ image, onLoad });
-          });
+            visionEnterTl
+              .fromTo(visionSourceWrap, { x: () => Math.min(window.innerWidth * 0.56, 720), autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1.45, ease: "power3.out" }, 0.15)
+              .fromTo(visionSourceCard, { scale: 0.975, rotate: 1.5 }, { scale: 1, rotate: 0, duration: 1.52, ease: "power3.out" }, 0.15)
+              .fromTo(visionTitle, { x: () => -Math.min(window.innerWidth * 0.38, 500), autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1.42, ease: "power3.out" }, 0.25)
+              .fromTo(visionDescription, { x: () => -Math.min(window.innerWidth * 0.32, 420), autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 1.40, ease: "power3.out" }, 0.45);
+
+            ScrollTrigger.create({
+              trigger: visionSection,
+              start: "top 102%",
+              invalidateOnRefresh: true,
+              onLeaveBack: () => {
+                resetVisionToHidden();
+                visionEnterTl.pause(0);
+              },
+            });
+
+            const visionImages = Array.from(document.querySelectorAll("[data-viziune-image]"));
+            const pendingImageHandlers = [];
+            visionImages.forEach((image) => {
+              if (image.complete) return;
+              const onLoad = () => refreshAfterAssets();
+              image.addEventListener("load", onLoad, { once: true });
+              pendingImageHandlers.push({ image, onLoad });
+            });
+            cleanups.push(() => {
+              pendingImageHandlers.forEach(({ image, onLoad }) =>
+                image.removeEventListener("load", onLoad)
+              );
+            });
+          }
+
           window.addEventListener("load", refreshAfterAssets);
           window.requestAnimationFrame(() => ScrollTrigger.refresh());
           cleanups.push(() => {
             window.removeEventListener("load", refreshAfterAssets);
-            pendingImageHandlers.forEach(({ image, onLoad }) =>
-              image.removeEventListener("load", onLoad)
-            );
           });
         }
 
