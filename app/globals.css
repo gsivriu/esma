@@ -77,6 +77,7 @@
 
 .press-carousel-track {
   display: flex;
+  width: max-content;
   animation: carousel-slide 7s linear infinite;
 }
 
