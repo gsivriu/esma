@@ -171,7 +171,7 @@ export default function CereAjutor() {
                       <p className="font-body text-lg leading-[1.68] text-[var(--color-text-muted)]">
                         {helpCard.description}
                       </p>
-                      <PillButton onClick={openModal}>
+                      <PillButton onClick={openModal} className="!max-w-none sm:!max-w-[220px]">
                         Solicită o discuție
                       </PillButton>
                     </div>

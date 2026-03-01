@@ -102,17 +102,17 @@ export default function ImplicaTe() {
               </ScrollReveal>
 
               <ScrollReveal delay={0.1}>
-                <h2 className="font-display text-xl md:text-2xl font-medium leading-snug text-[var(--color-text)] text-center mb-5">
+                <h2 className="font-display text-xl md:text-2xl font-medium leading-snug text-[var(--color-text)] text-left sm:text-center mb-5">
                   Ești psiholog/psihoterapeut sau consilier juridic/avocat?
                 </h2>
-                <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)] text-center mb-6">
+                <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)] text-left sm:text-center mb-6">
                   Te poți alătura unei echipe care pune în centru siguranța, demnitatea și
                   reconstrucția după experiențe de violență.
                 </p>
               </ScrollReveal>
 
               <ScrollReveal delay={0.2}>
-                <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)] mb-3">
+                <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)] text-left sm:text-center mb-3">
                   Dacă alegi să fii parte din echipă, vei putea:
                 </p>
                 <ul className="space-y-2 mb-6">
@@ -132,7 +132,7 @@ export default function ImplicaTe() {
               </ScrollReveal>
 
               <ScrollReveal delay={0.3}>
-                <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)] mb-8">
+                <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)] text-left sm:text-center mb-8">
                   Indiferent că ești la început de drum sau ai ani de practică, prezența ta poate
                   conta enorm. Completează formularul sau scrie-ne — ne vom reveni pentru a
                   discuta pașii următori, în funcție de disponibilitate și aria ta de expertiză.
@@ -192,7 +192,7 @@ export default function ImplicaTe() {
                       </div>
 
                       {/* Amount buttons */}
-                      <div className="grid grid-cols-4 gap-2">
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                         {DONATION_AMOUNTS[currency].map((amount) => (
                           <button
                             key={amount}
@@ -362,7 +362,7 @@ export default function ImplicaTe() {
               </ScrollReveal>
 
               <ScrollReveal delay={0.1}>
-                <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)] mb-6">
+                <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)] text-left sm:text-center mb-6">
                   Schimbarea reală se construiește împreună — dintr-o comunitate care alege
                   să fie consecventă, prin sprijin specializat și pași concreți prin care oamenii
                   își pot recăpăta siguranța și puterea de a decide pentru propria viață.

@@ -36,19 +36,24 @@
         return;
       }
 
+      const isMobile = window.innerWidth < 768;
+      const revealY = isMobile ? 36 : 60;
+      const sectionY = isMobile ? 36 : 64;
+      const footerY = isMobile ? 36 : 56;
+
       const cleanups = [];
       const ctx = gsap.context(() => {
         const offerCards = gsap.utils.toArray("[data-offer-card]");
         const offerStack = document.querySelector("[data-offer-stack]");
         if (offerCards.length) {
-          gsap.set(offerCards, { autoAlpha: 0, y: 60 });
+          gsap.set(offerCards, { autoAlpha: 0, y: revealY });
         }
 
         const sectionSequence = gsap.utils.toArray(".snap-section");
         sectionSequence.forEach((section, index) => {
           gsap.fromTo(
             section,
-            { autoAlpha: 0, y: 64 },
+            { autoAlpha: 0, y: sectionY },
             {
               autoAlpha: 1,
               y: 0,
@@ -67,7 +72,7 @@
         if (footer) {
           gsap.fromTo(
             footer,
-            { autoAlpha: 0, y: 56 },
+            { autoAlpha: 0, y: footerY },
             {
               autoAlpha: 1,
               y: 0,
@@ -249,12 +254,12 @@
         // ── Offer cards scroll reveal (stagger) ──────────────────────────────
         if (offerCards.length && offerStack) {
           const resetOfferCardsToHidden = () => {
-            gsap.set(offerCards, { y: 60, autoAlpha: 0 });
+            gsap.set(offerCards, { y: revealY, autoAlpha: 0 });
           };
 
           const offerRevealTween = gsap.fromTo(
             offerCards,
-            { y: 60, autoAlpha: 0 },
+            { y: revealY, autoAlpha: 0 },
             {
               y: 0,
               autoAlpha: 1,
@@ -286,13 +291,13 @@
         if (servicesHeader) {
           const servicesSection = servicesHeader.closest("section");
           const resetServicesHeaderToHidden = () => {
-            gsap.set(servicesHeader, { y: 60, autoAlpha: 0 });
+            gsap.set(servicesHeader, { y: revealY, autoAlpha: 0 });
           };
 
-          gsap.set(servicesHeader, { y: 60, autoAlpha: 0 });
+          gsap.set(servicesHeader, { y: revealY, autoAlpha: 0 });
           const servicesHeaderTween = gsap.fromTo(
             servicesHeader,
-            { y: 60, autoAlpha: 0 },
+            { y: revealY, autoAlpha: 0 },
             {
               y: 0,
               autoAlpha: 1,
@@ -328,10 +333,10 @@
           const ctaElements = [ctaReveals[0], ctaButtons, ctaReveals[1], ctaReveals[2]].filter(Boolean);
           if (ctaElements.length) {
             const resetCtaToHidden = () => {
-              gsap.set(ctaElements, { y: 60, autoAlpha: 0 });
+              gsap.set(ctaElements, { y: revealY, autoAlpha: 0 });
             };
 
-            gsap.set(ctaElements, { y: 60, autoAlpha: 0 });
+            gsap.set(ctaElements, { y: revealY, autoAlpha: 0 });
             const ctaTl = gsap.timeline({
               scrollTrigger: {
                 trigger: ctaReveals[0],
@@ -341,10 +346,10 @@
               },
             });
             ctaTl
-              .fromTo(ctaReveals[0], { y: 60, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.0, ease: "power3.out" }, 0)
-              .fromTo(ctaButtons, { y: 60, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.0, ease: "power3.out" }, 0.15)
-              .fromTo(ctaReveals[1], { y: 60, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.0, ease: "power3.out" }, 0.30)
-              .fromTo(ctaReveals[2], { y: 60, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.0, ease: "power3.out" }, 0.45);
+              .fromTo(ctaReveals[0], { y: revealY, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.0, ease: "power3.out" }, 0)
+              .fromTo(ctaButtons, { y: revealY, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.0, ease: "power3.out" }, 0.15)
+              .fromTo(ctaReveals[1], { y: revealY, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.0, ease: "power3.out" }, 0.30)
+              .fromTo(ctaReveals[2], { y: revealY, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.0, ease: "power3.out" }, 0.45);
 
             ScrollTrigger.create({
               trigger: ctaSection,
@@ -364,10 +369,10 @@
           const echipaHeader = echipaSection.querySelector("[data-reveal]");
           let echipaHeaderTween = null;
           if (echipaHeader) {
-            gsap.set(echipaHeader, { y: 60, autoAlpha: 0 });
+            gsap.set(echipaHeader, { y: revealY, autoAlpha: 0 });
             echipaHeaderTween = gsap.fromTo(
               echipaHeader,
-              { y: 60, autoAlpha: 0 },
+              { y: revealY, autoAlpha: 0 },
               {
                 y: 0,
                 autoAlpha: 1,
@@ -387,10 +392,10 @@
           const teamGrid = echipaSection.querySelector("[data-stagger-group]");
           let teamCardsTween = null;
           if (teamCards.length && teamGrid) {
-            gsap.set(teamCards, { y: 60, autoAlpha: 0 });
+            gsap.set(teamCards, { y: revealY, autoAlpha: 0 });
             teamCardsTween = gsap.fromTo(
               teamCards,
-              { y: 60, autoAlpha: 0 },
+              { y: revealY, autoAlpha: 0 },
               {
                 y: 0,
                 autoAlpha: 1,
@@ -414,11 +419,11 @@
               invalidateOnRefresh: true,
               onLeaveBack: () => {
                 if (echipaHeader) {
-                  gsap.set(echipaHeader, { y: 60, autoAlpha: 0 });
+                  gsap.set(echipaHeader, { y: revealY, autoAlpha: 0 });
                   echipaHeaderTween?.pause(0);
                 }
                 if (teamCards.length) {
-                  gsap.set(teamCards, { y: 60, autoAlpha: 0 });
+                  gsap.set(teamCards, { y: revealY, autoAlpha: 0 });
                   teamCardsTween?.pause(0);
                 }
               },
@@ -431,10 +436,10 @@
         if (pressSection) {
           const pressItems = gsap.utils.toArray("[data-stagger-item]", pressSection);
           if (pressItems.length) {
-            gsap.set(pressItems, { y: 60, autoAlpha: 0 });
+            gsap.set(pressItems, { y: revealY, autoAlpha: 0 });
             const pressTween = gsap.fromTo(
               pressItems,
-              { y: 60, autoAlpha: 0 },
+              { y: revealY, autoAlpha: 0 },
               {
                 y: 0,
                 autoAlpha: 1,
@@ -455,7 +460,7 @@
               start: "top 102%",
               invalidateOnRefresh: true,
               onLeaveBack: () => {
-                gsap.set(pressItems, { y: 60, autoAlpha: 0 });
+                gsap.set(pressItems, { y: revealY, autoAlpha: 0 });
                 pressTween.pause(0);
               },
             });

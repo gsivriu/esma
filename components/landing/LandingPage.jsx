@@ -163,7 +163,6 @@ export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showHeader, setShowHeader] = useState(false);
   const [statsCountRunId, setStatsCountRunId] = useState(0);
-  const [pressIndex, setPressIndex] = useState(0);
   const [wordmarkLayout, setWordmarkLayout] = useState({
     sX: 0,
     mX: 0,
@@ -675,7 +674,7 @@ export default function LandingPage() {
 
                   <p
                     data-reveal
-                    className="font-body text-lg leading-[1.68] mx-auto max-w-[62ch] !text-[clamp(1.35rem,1.8vw,1.75rem)] leading-[1.7] text-[var(--color-text-inverse)] [text-shadow:0_1px_3px_rgba(17,12,8,0.4)]"
+                    className="font-body leading-[1.7] mx-auto max-w-[62ch] !text-[clamp(0.95rem,3.5vw,1.1rem)] sm:!text-[clamp(1.35rem,1.8vw,1.75rem)] text-[var(--color-text-inverse)] [text-shadow:0_1px_3px_rgba(17,12,8,0.4)] line-clamp-3 sm:line-clamp-none"
                   >
                     O asociație dedicată sprijinirii victimelor abuzului domestic prin implicarea activă
                     a comunității: oameni, profesioniști și organizații care aleg să acționeze.
@@ -719,12 +718,12 @@ export default function LandingPage() {
                   data-vision-description
                   className="mt-8 max-w-[58ch] space-y-6 text-left"
                 >
-                  <p className="font-body text-base leading-[1.7] text-[#2C2015]">
+                  <p className="font-body text-[clamp(1rem,4vw,1.125rem)] leading-[1.75] text-[#2C2015]">
                     Într-o lume în care tăcerea nu mai este o formă de supraviețuire, vedem un
                     viitor în care nicio femeie nu este nevoită să aleagă între abuz și stradă un viitor în care comunitatea devine scut, iar siguranța este un drept, nu un lux.
                   </p>
 
-                  <p className="font-body text-base leading-[1.7] text-[#2C2015]">
+                  <p className="font-body text-[clamp(1rem,4vw,1.125rem)] leading-[1.75] text-[#2C2015]">
                     Construim o rețea de sprijin care transformă{"\u00A0"}
                     <em className="font-serif italic text-[#A56930]">„nu am unde să plec"</em>
                     {"\u00A0"}în{"\u00A0"}
@@ -733,7 +732,7 @@ export default function LandingPage() {
                     reclădi încrederea, a recâștiga drepturile și a vindeca rănile vizibile și invizibile.
                   </p>
 
-                  <p className="font-body text-base leading-[1.7] text-[#2C2015]">
+                  <p className="font-body text-[clamp(1rem,4vw,1.125rem)] leading-[1.75] text-[#2C2015]">
                     Misiunea noastră nu este să salvăm, ci să împuternicim. Să fim vocea care
                     spune:{"\u00A0"}
                     <strong className="font-medium text-[#1C1611]">nu ești singură</strong>.
@@ -830,19 +829,19 @@ export default function LandingPage() {
                 />
               </div>
 
-              <div data-offer-stack data-stagger-group className="grid grid-cols-3 gap-3 md:gap-6 w-full">
+              <div data-offer-stack data-stagger-group className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full">
                 {OFFER_PILLARS.map((item) => (
                   <Card
                     key={item.title}
                     data-offer-card
                     data-stagger-item
                     tabIndex={0}
-                    className="!rounded-2xl !p-3 md:!p-10 h-full transition-shadow duration-300 hover:shadow-lg flex flex-col items-center justify-center gap-2 md:gap-4 text-center"
+                    className="!rounded-2xl !p-6 md:!p-10 h-full transition-shadow duration-300 hover:shadow-lg flex flex-col items-start md:items-center justify-start md:justify-center gap-3 md:gap-4 text-left md:text-center"
                   >
-                    <h3 className="font-display text-[0.7rem] md:text-2xl font-medium leading-snug mb-1 md:mb-4 text-[var(--color-text)]">
+                    <h3 className="font-display text-xl md:text-2xl font-medium leading-snug mb-1 md:mb-4 text-[var(--color-text)]">
                       {item.title}
                     </h3>
-                    <p className="font-[var(--font-body)] text-[0.55rem] md:text-sm leading-relaxed text-[var(--color-text-muted)] hidden md:block">
+                    <p className="font-body text-sm leading-relaxed text-[var(--color-text-muted)]">
                       {item.text}
                     </p>
                   </Card>
@@ -866,19 +865,19 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-4" data-stagger-group>
-              <PillButton href="/implica-te#fii-voluntar" onClick={removeSnapClasses} data-stagger-item variant="light">
-                Fii voluntar
-              </PillButton>
+            <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4" data-stagger-group>
               <a
                 href="/implica-te#doneaza"
                 onClick={removeSnapClasses}
                 data-stagger-item
-                className="focus-ring inline-flex w-full max-w-[220px] min-h-[3.25rem] items-center justify-center rounded-full px-8 py-3.5 text-center text-[0.9375rem] font-medium leading-none shadow-[0_8px_20px_rgba(17,12,8,0.08)] transition-all duration-200 ease-out hover:shadow-[0_12px_26px_rgba(17,12,8,0.14)] sm:min-h-[3.5rem] sm:px-8 sm:py-3.5 border border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-surface)] hover:bg-[var(--color-accent-hover)] hover:border-[var(--color-accent-hover)]"
+                className="focus-ring inline-flex w-full max-w-none sm:max-w-[220px] min-h-[3.25rem] items-center justify-center rounded-full px-8 py-3.5 text-center text-[0.9375rem] font-medium leading-none shadow-[0_8px_20px_rgba(17,12,8,0.08)] transition-all duration-200 ease-out hover:shadow-[0_12px_26px_rgba(17,12,8,0.14)] sm:min-h-[3.5rem] border border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-surface)] hover:bg-[var(--color-accent-hover)] hover:border-[var(--color-accent-hover)]"
               >
                 Donează
               </a>
-              <PillButton href="/implica-te#devino-partener" onClick={removeSnapClasses} data-stagger-item variant="light">
+              <PillButton href="/implica-te#fii-voluntar" onClick={removeSnapClasses} data-stagger-item variant="light" className="!max-w-none sm:!max-w-[220px]">
+                Fii voluntar
+              </PillButton>
+              <PillButton href="/implica-te#devino-partener" onClick={removeSnapClasses} data-stagger-item variant="light" className="!max-w-none sm:!max-w-[220px]">
                 Devino partener
               </PillButton>
             </div>
@@ -915,10 +914,10 @@ export default function LandingPage() {
                 <article
                   key={member.name}
                   data-stagger-item
-                  className="group relative isolate min-h-[460px] [perspective:1400px]"
+                  className="group relative isolate md:min-h-[460px] md:[perspective:1400px]"
                 >
-                  <div className="relative h-full min-h-[460px] w-full [transform:translateZ(0)] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d] [-webkit-transform-style:preserve-3d] will-change-transform group-hover:[transform:rotateY(180deg)]">
-                    <div className="absolute inset-0 z-[2] overflow-hidden rounded-[2rem] border border-[var(--color-border)] opacity-100 transition-opacity duration-180 ease-out group-hover:opacity-0 [transform:rotateY(0deg)_translateZ(0.1px)] [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
+                  <div className="flex flex-col md:relative md:h-full md:min-h-[460px] w-full md:[transform:translateZ(0)] md:transition-transform md:duration-700 md:ease-[cubic-bezier(0.22,1,0.36,1)] md:[transform-style:preserve-3d] md:[-webkit-transform-style:preserve-3d] md:will-change-transform md:group-hover:[transform:rotateY(180deg)]">
+                    <div className="relative aspect-[4/3] md:aspect-auto md:absolute md:inset-0 z-[2] overflow-hidden rounded-t-[2rem] md:rounded-[2rem] border border-b-0 md:border-b border-[var(--color-border)] md:opacity-100 md:transition-opacity md:duration-200 md:ease-out md:group-hover:opacity-0 md:[transform:rotateY(0deg)_translateZ(0.1px)] md:[backface-visibility:hidden] md:[-webkit-backface-visibility:hidden]">
                       <Image
                         src={member.photo}
                         alt={member.name}
@@ -927,15 +926,15 @@ export default function LandingPage() {
                         sizes="(min-width: 768px) 33vw, 100vw"
                       />
                       <div className="absolute inset-0 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] bg-[linear-gradient(180deg,rgba(20,16,12,0.08)_38%,rgba(20,16,12,0.62)_78%,rgba(20,16,12,0.86)_100%)]" />
-                      <div className="absolute inset-x-0 bottom-0 px-6 pb-7 pt-0 text-left [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
+                      <div className="absolute inset-x-0 bottom-0 px-6 pb-5 md:pb-7 pt-0 text-left [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
                         <p className="font-body text-xs font-medium tracking-[0.12em] uppercase mb-1.5 text-[rgba(247,239,230,0.55)]">{member.role}</p>
-                        <h3 className="font-body text-lg leading-[1.68] font-medium leading-tight text-[var(--color-text-inverse)]">{member.name}</h3>
+                        <h3 className="font-body text-lg font-medium leading-tight text-[var(--color-text-inverse)]">{member.name}</h3>
                       </div>
                     </div>
 
-                    <div className="absolute inset-0 z-[3] flex h-full flex-col justify-center rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface)] px-8 py-10 text-left opacity-0 transition-opacity duration-180 ease-out group-hover:opacity-100 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)_translateZ(0.1px)]">
+                    <div className="relative flex flex-col md:absolute md:inset-0 md:z-[3] md:h-full md:justify-center rounded-b-[2rem] md:rounded-[2rem] border border-t-0 md:border-t border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-6 md:px-8 md:py-10 text-left md:opacity-0 md:transition-opacity md:duration-200 md:ease-out md:group-hover:opacity-100 md:[backface-visibility:hidden] md:[-webkit-backface-visibility:hidden] md:[transform:rotateY(180deg)_translateZ(0.1px)]">
                       <div>
-                        <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)] leading-[1.75]">
+                        <p className="font-body text-base leading-[1.75] text-[var(--color-text-muted)]">
                           {member.story}
                         </p>
                         <div
@@ -961,35 +960,16 @@ export default function LandingPage() {
               />
             </div>
 
-            {/* Mobile: carousel */}
-            <div className="md:hidden">
-              <div className="overflow-hidden">
-                <div
-                  className="flex transition-transform duration-700 ease-in-out"
-                  style={{ transform: `translateX(-${pressIndex * 100}%)` }}
-                >
-                  {PRESS.map((item) => (
-                    <div key={item.source} className="w-full flex-shrink-0">
-                      <Card className="space-y-5 text-center">
-                        <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)]">&ldquo;{item.text}&rdquo;</p>
-                        <p className="font-body text-xs font-medium tracking-[0.12em] uppercase font-semibold text-[var(--color-text)]">
-                          {item.source}
-                        </p>
-                      </Card>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="flex justify-center gap-2 mt-5">
-                {PRESS.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setPressIndex(i)}
-                    aria-label={`Slide ${i + 1}`}
-                    className={['h-1.5 rounded-full transition-all duration-300', i === pressIndex ? 'w-6 bg-[var(--color-accent)]' : 'w-1.5 bg-[var(--color-border)]'].join(' ')}
-                  />
-                ))}
-              </div>
+            {/* Mobile: stacked cards */}
+            <div className="md:hidden flex flex-col gap-4">
+              {PRESS.map((item) => (
+                <Card key={item.source} className="space-y-5 text-center">
+                  <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)]">&ldquo;{item.text}&rdquo;</p>
+                  <p className="font-body text-xs font-medium tracking-[0.12em] uppercase font-semibold text-[var(--color-text)]">
+                    {item.source}
+                  </p>
+                </Card>
+              ))}
             </div>
 
             {/* Desktop: grid */}
@@ -1014,7 +994,7 @@ export default function LandingPage() {
             <div className="grid gap-x-10 gap-y-8 text-left grid-cols-2 lg:hidden">
               {FOOTER_LINK_GROUPS.filter((g) => !g.mobileHidden).map((group) => (
                 <div key={group.title} className="space-y-4">
-                  <h3 className="font-body text-base leading-[1.7] font-display font-medium text-[var(--color-text)]">
+                  <h3 className="font-body text-base leading-[1.7] font-display font-semibold text-[var(--color-text)]">
                     {group.title}
                   </h3>
                   <div className="space-y-3">
@@ -1025,7 +1005,7 @@ export default function LandingPage() {
                         onClick={() => { if (item.href.startsWith('/')) removeSnapClasses(); }}
                         target={item.external ? "_blank" : undefined}
                         rel={item.external ? "noreferrer" : undefined}
-                        className="focus-ring font-body text-sm leading-[1.65] block text-[var(--color-text-muted)] transition-colors duration-200 hover:text-[var(--color-text)]"
+                        className="focus-ring font-body text-[15px] leading-[1.65] block text-[var(--color-text-muted)] transition-colors duration-200 hover:text-[var(--color-text)]"
                       >
                         {item.label}
                       </a>

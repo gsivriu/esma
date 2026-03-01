@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 const directionMap = {
-  up: { y: 60, x: 0 },
+  up: { y: 36, x: 0 },
   left: { x: -40, y: 0 },
   right: { x: 40, y: 0 },
 };

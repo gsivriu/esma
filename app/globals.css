@@ -44,7 +44,7 @@
 
   /* ─── Layout ─── */
   --container-max: 75rem;
-  --container-gutter: clamp(1rem, 5vw, 5rem);
+  --container-gutter: clamp(1.25rem, 5vw, 5rem);
   --banner-height: 3.5rem;
   --header-h: 72px;
   --section-space: clamp(4rem, 10vw, 7.5rem);
@@ -114,6 +114,7 @@ body.landing-snap {
   scroll-snap-align: start;
   display: flex;
   align-items: center;
+  overflow-x: hidden;
 }
 
 .snap-section > * {
@@ -351,8 +352,14 @@ a {
 
 .grid-stats {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: var(--grid-gap);
+}
+
+@media (min-width: 48rem) {
+  .grid-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .grid-services {

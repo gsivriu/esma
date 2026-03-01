@@ -70,7 +70,7 @@ export default function DespreNoi() {
         <section className="pt-24 pb-7 md:pb-10">
           <Container>
             {/* ── Povestea noastră ── */}
-            <div className="mx-auto max-w-4xl text-center">
+            <div className="mx-auto max-w-4xl text-left sm:text-center">
               <ScrollReveal delay={0}>
                 <p className="font-body text-xs tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-6">
                   Despre noi
@@ -82,7 +82,7 @@ export default function DespreNoi() {
 
               <ScrollReveal delay={0.1}>
                 <blockquote className="mt-14 md:mt-16 mx-auto max-w-2xl">
-                  <p className="font-display text-2xl md:text-3xl lg:text-[2.5rem] italic font-light leading-snug text-[var(--color-text)]">
+                  <p className="font-display text-[clamp(1.3rem,5.5vw,2rem)] italic font-light leading-snug text-[var(--color-text)]">
                     „Nu am crescut într-o casă cu violență. Am crescut cu poveștile
                     ei, spuse târziu. Cu rușinea mamei mele. Cu fraze ca
                     «nu spune nimănui»."
@@ -109,7 +109,7 @@ export default function DespreNoi() {
             {/* ── Ce își propune esme ── */}
             <div className="mt-28 md:mt-40">
               <ScrollReveal delay={0}>
-                <h2 className="font-display text-3xl md:text-5xl font-medium leading-tight text-center text-[var(--color-text)]">
+                <h2 className="font-display text-3xl md:text-5xl font-medium leading-tight text-left sm:text-center text-[var(--color-text)]">
                   Ce își propune
                   <br />
                   esme

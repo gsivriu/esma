@@ -140,9 +140,9 @@ export default function StatCard({ value, label, detail, countRunId = 0, glass =
 
   return (
     <Card className={`h-full${glass ? " card-glass" : ""}`}>
-      <p className={`stat-number font-numbers text-base md:text-5xl font-medium leading-tight ${glass ? "text-[var(--color-text-inverse)]" : "text-[var(--color-text)]"}`}>{displayValue}</p>
-      <p className={`stat-label font-body text-[0.5rem] md:text-xs font-medium tracking-[0.06em] md:tracking-[0.12em] uppercase mt-1 md:mt-4 font-medium ${glass ? "text-[var(--color-text-inverse)]" : "text-[var(--color-text-muted)]"}`}>{label}</p>
-      {detail ? <p className={`stat-description type-body mt-2 hidden md:block ${glass ? "text-[var(--color-text-inverse)]" : "text-[var(--color-text-muted)]"}`}>{detail}</p> : null}
+      <p className={`stat-number font-numbers text-4xl md:text-5xl font-medium leading-tight ${glass ? "text-[var(--color-text-inverse)]" : "text-[var(--color-text)]"}`}>{displayValue}</p>
+      <p className={`stat-label font-body text-xs font-medium tracking-[0.12em] uppercase mt-3 md:mt-4 ${glass ? "text-[var(--color-text-inverse)]" : "text-[var(--color-text-muted)]"}`}>{label}</p>
+      {detail ? <p className={`stat-description type-body mt-2 ${glass ? "text-[var(--color-text-inverse)]" : "text-[var(--color-text-muted)]"}`}>{detail}</p> : null}
     </Card>
   );
 }
