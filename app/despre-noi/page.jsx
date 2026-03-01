@@ -71,7 +71,7 @@ export default function DespreNoi() {
             <div className="mt-28 md:mt-40">
               <ScrollReveal delay={0}>
                 <h2 className="font-display text-2xl md:text-5xl font-medium leading-tight text-left sm:text-center text-[var(--color-text)]">
-                  Ce își propune esme
+                  Ce își propune<br className="hidden md:block" /> esme
                 </h2>
               </ScrollReveal>
 
