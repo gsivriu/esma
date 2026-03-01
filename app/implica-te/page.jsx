@@ -93,7 +93,7 @@ export default function ImplicaTe() {
                   ].map((item) => (
                     <li
                       key={item}
-                      className="font-body text-base leading-[1.7] text-[var(--color-text-muted)] relative pl-5 before:absolute before:left-0 before:top-[0.65em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-[var(--color-accent-soft)]"
+                      className="font-body text-base leading-[1.7] text-[var(--color-text-muted)] relative pl-5 before:absolute before:left-0 before:top-[0.65em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-[var(--color-accent)]"
                     >
                       {item}
                     </li>
@@ -352,7 +352,7 @@ export default function ImplicaTe() {
                   ].map((item) => (
                     <li
                       key={item}
-                      className="font-body text-base leading-[1.7] text-[var(--color-text-muted)] relative pl-5 before:absolute before:left-0 before:top-[0.65em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-[var(--color-accent-soft)]"
+                      className="font-body text-base leading-[1.7] text-[var(--color-text-muted)] relative pl-5 before:absolute before:left-0 before:top-[0.65em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-[var(--color-accent)]"
                     >
                       {item}
                     </li>
@@ -367,8 +367,8 @@ export default function ImplicaTe() {
                 <ul className="grid gap-2 sm:grid-cols-2 mb-7">
                   {PARTENERIAT_TYPES.map((item) => (
                     <li key={item} className="flex items-start gap-2.5">
-                      <span className="mt-[0.35em] flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-tag-bg)]">
-                        <span className="h-1 w-1 rounded-full bg-[var(--color-text-muted)]" />
+                      <span className="mt-[0.35em] flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-[var(--color-accent)] bg-[var(--color-tag-bg)]">
+                        <span className="h-1 w-1 rounded-full bg-[var(--color-accent)]" />
                       </span>
                       <span className="font-body text-sm leading-[1.65] text-[var(--color-text-muted)]">{item}</span>
                     </li>
