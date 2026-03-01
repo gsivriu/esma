@@ -562,20 +562,20 @@ export default function LandingPage() {
               <div className="press-carousel-track">
                 {[...PRESS, ...PRESS].map((item, i) => (
                   <div key={i} className="flex-shrink-0 w-[85vw] md:w-[420px] px-2">
-                    <Card className="text-left p-8 flex flex-col justify-between min-h-[220px]">
+                    <Card className="text-left p-8 flex flex-col justify-between min-h-[280px]">
                       <div>
-                        <div className="flex gap-1 mb-6">
+                        <div className="flex gap-1 mb-8">
                           {Array.from({ length: 5 }).map((_, s) => (
-                            <Star key={s} className="w-3.5 h-3.5 fill-foreground text-foreground" />
+                            <Star key={s} className="w-4 h-4 fill-foreground text-foreground" />
                           ))}
                         </div>
-                        <p className="font-display text-lg font-light italic leading-relaxed text-[var(--color-text)]">
+                        <p className="font-display text-lg md:text-xl font-light italic leading-relaxed text-[var(--color-text)]">
                           {item.text}
                         </p>
                       </div>
-                      <div className="mt-6">
+                      <div className="mt-8">
                         <div className="w-10 h-px bg-amber-700/40 mb-4" />
-                        <p className="font-body text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-text)]">
+                        <p className="font-body text-sm font-semibold tracking-[0.12em] uppercase text-[var(--color-text)]">
                           {item.source}
                         </p>
                       </div>
