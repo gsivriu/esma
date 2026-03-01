@@ -553,7 +553,7 @@ export default function LandingPage() {
               <SectionHeader
                 align="center"
                 title="Menționări și testimoniale"
-                description="Reacții din presă și din comunitate despre impactul inițiativei ESME."
+                description="Reacții din comunitate despre impactul inițiativei ESME."
               />
             </div>
 
