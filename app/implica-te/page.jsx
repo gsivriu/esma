@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Container from "../../components/ui/Container";
 import PillButton from "../../components/ui/PillButton";
@@ -36,6 +36,15 @@ export default function ImplicaTe() {
   const [email, setEmail] = useState("");
   const [telefon, setTelefon] = useState("");
   const [campanie, setCampanie] = useState("");
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash === "#doneaza" || hash === "#fii-voluntar" || hash === "#devino-partener") {
+      setTimeout(() => {
+        document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 300);
+    }
+  }, []);
 
   const handleCurrencyChange = (c) => {
     setCurrency(c);

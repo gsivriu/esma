@@ -121,7 +121,7 @@ export default function GlobalNavbar() {
 
             <div className="flex items-center gap-3">
               <Button
-                href="/implica-te"
+                href="/implica-te#doneaza"
                 variant="primary"
                 className="hidden sm:inline-flex !rounded-full h-10"
                 onClick={removeSnapClasses}
@@ -231,7 +231,7 @@ export default function GlobalNavbar() {
 
             <div className="flex flex-col items-start gap-3 px-6 pb-10">
               <Button
-                href="/implica-te"
+                href="/implica-te#doneaza"
                 variant="primary"
                 className="!rounded-full h-10"
                 onClick={() => {
