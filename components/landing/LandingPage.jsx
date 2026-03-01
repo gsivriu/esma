@@ -917,12 +917,12 @@ export default function LandingPage() {
                   className="group relative isolate md:min-h-[460px] md:[perspective:1400px]"
                 >
                   <div className="flex flex-col md:relative md:h-full md:min-h-[460px] w-full md:[transform:translateZ(0)] md:transition-transform md:duration-700 md:ease-[cubic-bezier(0.22,1,0.36,1)] md:[transform-style:preserve-3d] md:[-webkit-transform-style:preserve-3d] md:will-change-transform md:group-hover:[transform:rotateY(180deg)]">
-                    <div className="relative aspect-[4/3] md:aspect-auto md:absolute md:inset-0 z-[2] overflow-hidden rounded-t-[2rem] md:rounded-[2rem] border border-b-0 md:border-b border-[var(--color-border)] md:opacity-100 md:transition-opacity md:duration-200 md:ease-out md:group-hover:opacity-0 md:[transform:rotateY(0deg)_translateZ(0.1px)] md:[backface-visibility:hidden] md:[-webkit-backface-visibility:hidden]">
+                    <div className="relative h-[480px] md:h-auto md:aspect-auto md:absolute md:inset-0 z-[2] overflow-hidden rounded-t-[2rem] md:rounded-[2rem] border border-b-0 md:border-b border-[var(--color-border)] md:opacity-100 md:transition-opacity md:duration-200 md:ease-out md:group-hover:opacity-0 md:[transform:rotateY(0deg)_translateZ(0.1px)] md:[backface-visibility:hidden] md:[-webkit-backface-visibility:hidden]">
                       <Image
                         src={member.photo}
                         alt={member.name}
                         fill
-                        className="object-cover object-center [backface-visibility:hidden] [-webkit-backface-visibility:hidden]"
+                        className="object-cover object-top [backface-visibility:hidden] [-webkit-backface-visibility:hidden]"
                         sizes="(min-width: 768px) 33vw, 100vw"
                       />
                       <div className="absolute inset-0 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] bg-[linear-gradient(180deg,rgba(20,16,12,0.08)_38%,rgba(20,16,12,0.62)_78%,rgba(20,16,12,0.86)_100%)]" />
