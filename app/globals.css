@@ -110,14 +110,8 @@ textarea {
   font-family: inherit;
 }
 
-html.landing-snap,
-body.landing-snap {
-  scroll-snap-type: y proximity;
-}
-
 .snap-section {
   min-height: calc(100svh - 5rem);
-  scroll-snap-align: start;
   display: flex;
   align-items: center;
   overflow-x: hidden;
@@ -137,8 +131,19 @@ body.landing-snap {
   }
 }
 
-.landing-snap footer {
-  scroll-snap-align: start;
+@media (min-width: 768px) {
+  html.landing-snap,
+  body.landing-snap {
+    scroll-snap-type: y proximity;
+  }
+
+  .snap-section {
+    scroll-snap-align: start;
+  }
+
+  .landing-snap footer {
+    scroll-snap-align: start;
+  }
 }
 
 h1,
