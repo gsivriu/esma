@@ -80,7 +80,7 @@
   width: max-content;
   will-change: transform;
   backface-visibility: hidden;
-  animation: carousel-slide 9.1s linear infinite;
+  animation: carousel-slide 11.83s linear infinite;
 }
 
 @media (min-width: 48rem) {
