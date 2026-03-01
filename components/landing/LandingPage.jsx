@@ -462,6 +462,9 @@ export default function LandingPage() {
             </div>
 
             <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4" data-stagger-group>
+              <PillButton href="/implica-te#fii-voluntar" onClick={removeSnapClasses} data-stagger-item variant="light" className="!max-w-none sm:!max-w-[220px]">
+                Fii voluntar
+              </PillButton>
               <a
                 href="/implica-te#doneaza"
                 onClick={removeSnapClasses}
@@ -470,9 +473,6 @@ export default function LandingPage() {
               >
                 Donează
               </a>
-              <PillButton href="/implica-te#fii-voluntar" onClick={removeSnapClasses} data-stagger-item variant="light" className="!max-w-none sm:!max-w-[220px]">
-                Fii voluntar
-              </PillButton>
               <PillButton href="/implica-te#devino-partener" onClick={removeSnapClasses} data-stagger-item variant="light" className="!max-w-none sm:!max-w-[220px]">
                 Devino partener
               </PillButton>
