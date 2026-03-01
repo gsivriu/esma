@@ -214,9 +214,7 @@ export default function GlobalNavbar() {
                     }}
                     className="group flex items-baseline gap-4"
                   >
-                    <span className="w-5 shrink-0 select-none font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7A6A5A]">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
+                    <span className="w-5 shrink-0" aria-hidden="true" />
                     <span className="relative font-display text-[clamp(2.5rem,10vw,4rem)] font-light leading-none text-[var(--color-text)] group-hover:italic">
                       {item.label}
                       <span
@@ -227,20 +225,38 @@ export default function GlobalNavbar() {
                   </Link>
                 </motion.div>
               ))}
-            </nav>
 
-            <div className="flex flex-col items-start gap-3 px-6 pb-10">
-              <Button
-                href="/implica-te#doneaza"
-                variant="primary"
-                className="!rounded-full h-10"
-                onClick={() => {
-                  closeMobileMenu();
-                  removeSnapClasses();
+              <motion.div
+                key="doneaza"
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.1 + 4 * 0.08,
+                  duration: 0.5,
+                  ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                Donează
-              </Button>
+                <Link
+                  href="/implica-te#doneaza"
+                  onClick={() => {
+                    closeMobileMenu();
+                    removeSnapClasses();
+                  }}
+                  className="group flex items-baseline gap-4"
+                >
+                  <span className="w-5 shrink-0" aria-hidden="true" />
+                  <span className="relative font-display text-[clamp(2.5rem,10vw,4rem)] font-light leading-none text-[#C17F3E] group-hover:italic">
+                    Donează
+                    <span
+                      aria-hidden="true"
+                      className="absolute -bottom-1 left-0 h-px w-0 bg-[#C17F3E] transition-all duration-300 group-hover:w-full"
+                    />
+                  </span>
+                </Link>
+              </motion.div>
+            </nav>
+
+            <div className="px-6 pb-10">
               <p className="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7A6A5A]">
                 Sprijin · Siguranță · Speranță
               </p>
