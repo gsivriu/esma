@@ -28,7 +28,7 @@ export default function DespreNoi() {
   return (
     <div className="min-h-screen bg-[var(--color-surface)]">
       <main className="pt-[var(--header-h)]">
-        <section className="pt-8 md:pt-24 pb-7 md:pb-10">
+        <section className="pt-16 md:pt-24 pb-7 md:pb-10">
           <Container>
             {/* ── Povestea noastră ── */}
             <div className="mx-auto max-w-4xl text-left sm:text-center">
