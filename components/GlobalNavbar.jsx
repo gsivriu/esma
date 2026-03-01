@@ -101,7 +101,7 @@ export default function GlobalNavbar() {
                 className="h-[0.72em] w-auto shrink-0 [height:1.5cap]"
                 aria-hidden="true"
               />
-              <span className="inline-block tracking-[0.06em]">ESME</span>
+              <span className="inline-block tracking-[0.06em]">esme</span>
             </Link>
 
             <nav className="font-body text-sm leading-[1.65] hidden items-center gap-6 text-[var(--color-text-muted)] lg:flex">
