@@ -1010,8 +1010,8 @@ export default function LandingPage() {
       <footer id="contact" className="py-14">
         <Container className="space-y-10">
           <div className="border-t border-[var(--color-border)] pt-8">
-            {/* Mobile: only Conectare + Legal */}
-            <div className="mx-auto grid max-w-6xl gap-x-14 gap-y-10 text-left grid-cols-2 lg:hidden">
+            {/* Mobile: only Conectare + Legal side by side */}
+            <div className="grid gap-x-10 gap-y-8 text-left grid-cols-2 lg:hidden">
               {FOOTER_LINK_GROUPS.filter((g) => !g.mobileHidden).map((group) => (
                 <div key={group.title} className="space-y-4">
                   <h3 className="font-body text-base leading-[1.7] font-display font-medium text-[var(--color-text)]">
