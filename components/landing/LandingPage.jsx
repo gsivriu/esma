@@ -1,29 +1,15 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import LandingAnimations from "./LandingAnimations";
-import LogoESME from "../LogoESME";
 import viziuneImage from "../viziune.jpg";
 import womanStatsImage from "../interior.jpeg";
 import Container from "../ui/Container";
 import SectionHeader from "../ui/SectionHeader";
-import Button from "../ui/Button";
 import PillButton from "../ui/PillButton";
 import Card from "../ui/Card";
 import StatCard from "../ui/StatCard";
-
-const NAV_LINKS = [
-  { label: "Acasă", href: "#acasa" },
-  { label: "Despre noi", href: "/despre-noi" },
-  { label: "Cere ajutor", href: "/cere-ajutor" },
-  { label: "Implică-te", href: "/implica-te" },
-];
-
-const WORDMARK_FONT_SIZE = 96;
-const WORDMARK_TRACKING_RATIO = 0.06;
 
 const OFFER_PILLARS = [
   {
@@ -160,26 +146,10 @@ const FOOTER_LINK_GROUPS = [
 ];
 
 export default function LandingPage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showHeader, setShowHeader] = useState(false);
   const [statsCountRunId, setStatsCountRunId] = useState(0);
-  const [wordmarkLayout, setWordmarkLayout] = useState({
-    sX: 0,
-    mX: 0,
-    rightEX: 0,
-    ready: false,
-  });
-  const heroSectionRef = useRef(null);
   const statsSectionRef = useRef(null);
   const statsGridRef = useRef(null);
   const statsGridWasVisibleRef = useRef(false);
-  const eLeftMeasureRef = useRef(null);
-  const sMeasureRef = useRef(null);
-  const mMeasureRef = useRef(null);
-  const eRightMeasureRef = useRef(null);
-  const wordmarkTracking = WORDMARK_FONT_SIZE * WORDMARK_TRACKING_RATIO;
-
-  const closeMobileMenu = () => setMobileMenuOpen(false);
 
   const removeSnapClasses = () => {
     document.documentElement.classList.remove("landing-snap");
@@ -193,65 +163,6 @@ export default function LandingPage() {
     return () => {
       document.documentElement.classList.remove("landing-snap");
       document.body.classList.remove("landing-snap");
-    };
-  }, []);
-
-  useEffect(() => {
-    const desktopBreakpoint = window.matchMedia("(min-width: 1024px)");
-
-    const handleBreakpointChange = (event) => {
-      if (event.matches) {
-        setMobileMenuOpen(false);
-      }
-    };
-
-    if (desktopBreakpoint.matches) {
-      setMobileMenuOpen(false);
-    }
-
-    if (desktopBreakpoint.addEventListener) {
-      desktopBreakpoint.addEventListener("change", handleBreakpointChange);
-      return () => desktopBreakpoint.removeEventListener("change", handleBreakpointChange);
-    }
-
-    desktopBreakpoint.addListener(handleBreakpointChange);
-    return () => desktopBreakpoint.removeListener(handleBreakpointChange);
-  }, []);
-
-  useEffect(() => {
-    const heroSection = heroSectionRef.current;
-    if (!heroSection) {
-      return;
-    }
-
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          const nextVisible = !entry.isIntersecting;
-          setShowHeader((prev) => (prev === nextVisible ? prev : nextVisible));
-        },
-        {
-          root: null,
-          threshold: 0,
-        }
-      );
-
-      observer.observe(heroSection);
-      return () => observer.disconnect();
-    }
-
-    const updateHeaderVisibility = () => {
-      const nextVisible = heroSection.getBoundingClientRect().bottom <= 0;
-      setShowHeader((prev) => (prev === nextVisible ? prev : nextVisible));
-    };
-
-    updateHeaderVisibility();
-    window.addEventListener("scroll", updateHeaderVisibility, { passive: true });
-    window.addEventListener("resize", updateHeaderVisibility);
-
-    return () => {
-      window.removeEventListener("scroll", updateHeaderVisibility);
-      window.removeEventListener("resize", updateHeaderVisibility);
     };
   }, []);
 
@@ -304,120 +215,6 @@ export default function LandingPage() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useLayoutEffect(() => {
-    let cancelled = false;
-
-    const measureWordmark = () => {
-      if (
-        !eLeftMeasureRef.current ||
-        !sMeasureRef.current ||
-        !mMeasureRef.current ||
-        !eRightMeasureRef.current
-      ) {
-        return;
-      }
-
-      const eLeftWidth = eLeftMeasureRef.current.getBBox().width;
-      const sWidth = sMeasureRef.current.getBBox().width;
-      const mWidth = mMeasureRef.current.getBBox().width;
-      const eRightWidth = eRightMeasureRef.current.getBBox().width;
-      if (!eLeftWidth || !sWidth || !mWidth || !eRightWidth) {
-        return;
-      }
-
-      const sX = eLeftWidth + wordmarkTracking;
-      const mX = sX + sWidth + wordmarkTracking;
-      const rightEX = mX + mWidth + wordmarkTracking;
-
-      setWordmarkLayout((prev) => {
-        if (
-          prev.ready &&
-          Math.abs(prev.sX - sX) < 0.01 &&
-          Math.abs(prev.mX - mX) < 0.01 &&
-          Math.abs(prev.rightEX - rightEX) < 0.01
-        ) {
-          return prev;
-        }
-
-        return { sX, mX, rightEX, ready: true };
-      });
-    };
-
-    const runMeasurement = async () => {
-      if (document.fonts?.ready) {
-        await document.fonts.ready;
-      }
-
-      if (cancelled) {
-        return;
-      }
-
-      requestAnimationFrame(() => {
-        if (!cancelled) {
-          measureWordmark();
-        }
-      });
-    };
-
-    runMeasurement();
-
-    const handleResize = () => {
-      measureWordmark();
-    };
-    window.addEventListener("resize", handleResize);
-
-    let handleFontsLoadingDone;
-    if (document.fonts?.addEventListener) {
-      handleFontsLoadingDone = () => {
-        measureWordmark();
-      };
-      document.fonts.addEventListener("loadingdone", handleFontsLoadingDone);
-    }
-
-    return () => {
-      cancelled = true;
-      window.removeEventListener("resize", handleResize);
-      if (handleFontsLoadingDone && document.fonts?.removeEventListener) {
-        document.fonts.removeEventListener("loadingdone", handleFontsLoadingDone);
-      }
-    };
-  }, [wordmarkTracking]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPressIndex((prev) => (prev + 1) % PRESS.length);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, []);
-
-  const wordmarkTextStyle = {
-    fontFamily:
-      'var(--font-logo), "Cormorant Garamond", "Times New Roman", serif',
-    fontSize: `${WORDMARK_FONT_SIZE}px`,
-    fontWeight: 300,
-    letterSpacing: "0",
-    fill: "#5a4540",
-    fontKerning: "normal",
-  };
-
-  const wordmarkMeasureTextStyle = {
-    ...wordmarkTextStyle,
-    fill: "transparent",
-    filter: "none",
-  };
-
-  const wordmarkVisibleTextStyle = {
-    ...wordmarkTextStyle,
-    filter: "none",
-  };
-
-  const wordmarkTiltTextStyle = {
-    ...wordmarkVisibleTextStyle,
-    transformBox: "fill-box",
-    transformOrigin: "center",
-    transform: "none",
-  };
-
   return (
     <div className="relative isolate overflow-x-clip">
       <LandingAnimations />
@@ -430,209 +227,8 @@ export default function LandingPage() {
         />
       </div>
 
-      <header
-        className={`fixed inset-x-0 top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg-glass)] backdrop-blur-[2px] transition-[opacity,transform] duration-300 ${
-          showHeader
-            ? "translate-y-0 opacity-100"
-            : "-translate-y-full opacity-0"
-        }`}
-      >
-        <Container className="py-1 md:py-3">
-          <div className="flex min-h-[3rem] md:min-h-[4.5rem] items-center justify-between gap-4">
-            <a
-              href="#acasa"
-              className="focus-ring font-display text-4xl md:text-5xl font-medium inline-flex items-center gap-1 leading-none min-h-[44px] text-[var(--color-text)]"
-              onClick={closeMobileMenu}
-            >
-              <LogoESME className="h-[0.94em] w-auto shrink-0 [height:1.5cap]" aria-hidden="true" />
-              <svg
-                role="img"
-                viewBox="0 0 320 120"
-                className="h-[1.24em] w-auto shrink-0 overflow-visible"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-label="ESME"
-              >
-                <g transform="translate(40 78)">
-                  <g opacity="0" aria-hidden="true">
-                    <text ref={eLeftMeasureRef} dominantBaseline="alphabetic" style={wordmarkMeasureTextStyle}>
-                      e
-                    </text>
-                    <text ref={sMeasureRef} dominantBaseline="alphabetic" style={wordmarkMeasureTextStyle}>
-                      s
-                    </text>
-                    <text ref={mMeasureRef} dominantBaseline="alphabetic" style={wordmarkMeasureTextStyle}>
-                      m
-                    </text>
-                    <text
-                      ref={eRightMeasureRef}
-                      dominantBaseline="alphabetic"
-                      style={wordmarkMeasureTextStyle}
-                    >
-                      e
-                    </text>
-                  </g>
-
-                  <g opacity={wordmarkLayout.ready ? 1 : 0}>
-                    <text
-                      x={0}
-                      dominantBaseline="alphabetic"
-                      textRendering="geometricPrecision"
-                      style={wordmarkTiltTextStyle}
-                    >
-                      e
-                    </text>
-
-                    <text
-                      x={wordmarkLayout.sX}
-                      dominantBaseline="alphabetic"
-                      textRendering="geometricPrecision"
-                      style={wordmarkVisibleTextStyle}
-                    >
-                      s
-                    </text>
-
-                    <text
-                      x={wordmarkLayout.mX}
-                      dominantBaseline="alphabetic"
-                      textRendering="geometricPrecision"
-                      style={wordmarkVisibleTextStyle}
-                    >
-                      m
-                    </text>
-
-                    <text
-                      x={wordmarkLayout.rightEX}
-                      dominantBaseline="alphabetic"
-                      textRendering="geometricPrecision"
-                      style={wordmarkTiltTextStyle}
-                    >
-                      e
-                    </text>
-                  </g>
-                </g>
-              </svg>
-            </a>
-
-            <nav className="font-body text-sm leading-[1.65] hidden items-center gap-6 text-[var(--color-text-muted)] lg:flex">
-              {NAV_LINKS.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="focus-ring transition-colors hover:text-[var(--color-text)]"
-                  onClick={() => { if (item.href.startsWith('/')) removeSnapClasses(); }}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-
-            <div className="flex items-center gap-3">
-              <Button href="/implica-te" variant="primary" className="hidden sm:inline-flex !rounded-full h-10" onClick={removeSnapClasses}>
-                Donează
-              </Button>
-              <button
-                type="button"
-                className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text)] transition-colors hover:bg-[var(--color-surface-strong)] lg:hidden"
-                aria-label="Deschide meniul"
-                aria-expanded={mobileMenuOpen}
-                onClick={() => setMobileMenuOpen(true)}
-              >
-                <span className="relative block h-4 w-5">
-                  <span className="absolute left-0 top-0.5 h-[2px] w-5 rounded-full bg-current" />
-                  <span className="absolute left-0 top-[7px] h-[2px] w-5 rounded-full bg-current" />
-                  <span className="absolute left-0 top-[13px] h-[2px] w-5 rounded-full bg-current" />
-                </span>
-              </button>
-            </div>
-          </div>
-
-        </Container>
-      </header>
-
-      {/* ── Full-screen mobile menu ── */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            className="fixed inset-0 z-[60] flex flex-col bg-[#F5F0E8] lg:hidden"
-            initial={{ clipPath: "circle(0% at calc(100% - 32px) 32px)" }}
-            animate={{ clipPath: "circle(150% at calc(100% - 32px) 32px)" }}
-            exit={{
-              clipPath: "circle(0% at calc(100% - 32px) 32px)",
-              transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
-            }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {/* Top bar */}
-            <div className="flex items-center justify-between px-6 py-5">
-              <a
-                href="#acasa"
-                onClick={closeMobileMenu}
-                className="font-display text-4xl font-medium inline-flex items-center gap-2 leading-none text-[var(--color-text)]"
-              >
-                <LogoESME className="h-[0.94em] w-auto shrink-0 [height:1.5cap]" aria-hidden="true" />
-                <span className="tracking-[0.06em]">ESME</span>
-              </a>
-              <button
-                type="button"
-                onClick={closeMobileMenu}
-                aria-label="Închide meniul"
-                className="focus-ring -mr-1 p-2 text-[var(--color-text)]"
-              >
-                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-                  <path d="M2 2l18 18M20 2L2 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Nav links */}
-            <nav className="flex flex-col flex-1 justify-center gap-8 px-6">
-              {NAV_LINKS.map((item, i) => (
-                <motion.div
-                  key={item.href}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <Link
-                    href={item.href}
-                    onClick={() => { closeMobileMenu(); if (item.href.startsWith("/")) removeSnapClasses(); }}
-                    className="group flex items-baseline gap-4"
-                  >
-                    <span className="w-5 shrink-0 select-none font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7A6A5A]">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="relative font-display text-[clamp(2.5rem,10vw,4rem)] font-light leading-none text-[var(--color-text)] group-hover:italic">
-                      {item.label}
-                      <span
-                        aria-hidden="true"
-                        className="absolute -bottom-1 left-0 h-px w-0 bg-[#C17F3E] transition-all duration-300 group-hover:w-full"
-                      />
-                    </span>
-                  </Link>
-                </motion.div>
-              ))}
-            </nav>
-
-            {/* Bottom */}
-            <div className="flex flex-col items-start gap-3 px-6 pb-10">
-              <Button
-                href="/implica-te"
-                variant="primary"
-                className="!rounded-full h-10"
-                onClick={() => { closeMobileMenu(); removeSnapClasses(); }}
-              >
-                Donează
-              </Button>
-              <p className="font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7A6A5A]">
-                Sprijin · Siguranță · Speranță
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       <main className="text-center">
-        <section ref={heroSectionRef} id="acasa" className="snap-section hero-snap py-0">
+        <section id="acasa" className="snap-section hero-snap py-0">
           <div className="relative w-full min-h-[100svh] overflow-hidden">
             <video
               autoPlay

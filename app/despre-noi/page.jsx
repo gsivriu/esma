@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Container from "../../components/ui/Container";
-import Button from "../../components/ui/Button";
 import LogoESME from "../../components/LogoESME";
 import ScrollReveal from "../../components/ui/ScrollReveal";
 
@@ -9,13 +8,6 @@ export const metadata = {
   description:
     "Povestea noastră: cum s-a născut ESME și ce ne propunem să facem pentru victimele violenței domestice.",
 };
-
-const NAV_LINKS = [
-  { label: "Acasă", href: "/" },
-  { label: "Despre noi", href: "/despre-noi" },
-  { label: "Cere ajutor", href: "/cere-ajutor" },
-  { label: "Implică-te", href: "/implica-te" },
-];
 
 const PILLARS = [
   {
@@ -35,37 +27,6 @@ const PILLARS = [
 export default function DespreNoi() {
   return (
     <div className="min-h-screen bg-[var(--color-surface)]">
-      {/* ── Navbar ── */}
-      <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg-glass)] backdrop-blur-[2px]">
-        <Container className="py-2 md:py-3">
-          <div className="flex min-h-[var(--header-h)] items-center justify-between gap-4">
-            <Link
-              href="/"
-              className="focus-ring font-display text-4xl md:text-5xl font-medium inline-flex items-center gap-2 leading-none min-h-[44px] text-[var(--color-text)]"
-            >
-              <LogoESME className="h-[0.72em] w-auto shrink-0 [height:1.5cap]" aria-hidden="true" />
-              <span className="inline-block tracking-[0.06em]">ESME</span>
-            </Link>
-
-            <nav className="font-body text-sm leading-[1.65] hidden items-center gap-6 text-[var(--color-text-muted)] lg:flex">
-              {NAV_LINKS.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="focus-ring transition-colors hover:text-[var(--color-text)]"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-
-            <Button href="/implica-te" variant="primary" className="hidden sm:inline-flex !rounded-full h-10">
-              Donează
-            </Button>
-          </div>
-        </Container>
-      </header>
-
       <main>
         <section className="pt-24 pb-7 md:pb-10">
           <Container>

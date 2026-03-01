@@ -1,5 +1,6 @@
 import { Cormorant_Garamond, DM_Sans, Fraunces } from "next/font/google";
 import InitialPageLoader from "../components/InitialPageLoader";
+import GlobalNavbar from "../components/GlobalNavbar";
 import "./globals.css";
 
 const headingFont = Cormorant_Garamond({
@@ -42,6 +43,7 @@ export default function RootLayout({ children }) {
     <html lang="ro" className={`${headingFont.variable} ${bodyFont.variable} ${logoWordmarkFont.variable} ${numbersFont.variable}`}>
       <body className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased">
         <InitialPageLoader />
+        <GlobalNavbar />
         {children}
       </body>
     </html>
