@@ -92,7 +92,7 @@ export default function CereAjutor() {
   return (
     <div className="min-h-screen bg-[var(--color-surface)]">
       {/* ── Content ── */}
-      <main>
+      <main className="pt-[var(--header-h)]">
         <section>
           <Container>
             <div

@@ -54,7 +54,7 @@ export default function ImplicaTe() {
 
   return (
     <div className="min-h-screen bg-[var(--color-surface)]">
-      <main>
+      <main className="pt-[var(--header-h)]">
         {/* ── Fii Voluntar ── */}
         <section
           id="fii-voluntar"
