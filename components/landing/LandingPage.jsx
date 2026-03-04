@@ -56,15 +56,13 @@ const TEAM = [
     name: "Silviana Adam",
     role: "Psiholog",
     photo: "/team/Silviana.jpeg?v=20260219-1",
-    story:
-      "Silviana creează un spațiu calm în care fiecare femeie poate vorbi fără teamă, în propriul ritm, și poate începe reconstrucția cu pași clari.",
+    story:"Sunt Silviana Adam, psihoterapeut și femeie. În practica mea, cred în puterea unui spațiu sigur, un loc în care nu trebuie să demonstrezi nimic și nu trebuie să fii altfel decât ești. Un spațiu în care poți să încetinești, să respiri și să te auzi cu adevărat. Consider că vindecarea nu înseamnă să devii mai puternic/ă, ci să te simți suficient de în siguranță încât să fii tu. Să îți recapeți treptat încrederea în propriile trăiri, în propriile limite, în propria voce."
   },
   {
     name: "Mihaela Cima",
     role: "Psiholog",
     photo: "/team/Mihaela.jpeg?v=20260219-1",
-    story:
-      "Mihaela combină empatia cu orientarea practică, transformând momentele de blocaj în opțiuni concrete și decizii asumate.",
+    story:" 'Fă tot ce îți stă în putință și asta va fi de-ajuns' este credința care îmi așază pașii, zi de zi. În practica mea, aleg să fiu prezentă cu tot ceea ce sunt, să sprijin, să ghidez, să fac loc. Cred în puterea unui spațiu sigur, în care oamenii pot să respire, să se așeze și să crească în ritmul lor. Fac tot ce îmi stă în putință, cu blândețe și responsabilitate, iar apoi am încredere că acest „destul” este, de fapt, începutul transformării."
   },
   {
     name: "Vlad Diaconu",
