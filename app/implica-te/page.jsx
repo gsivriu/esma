@@ -1,11 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import Container from "../../components/ui/Container";
 import PillButton from "../../components/ui/PillButton";
 import ScrollReveal from "../../components/ui/ScrollReveal";
 import LogoESME from "../../components/LogoESME";
+
+const EMPTY_VOLUNTAR = { nume: "", prenume: "", email: "", telefon: "", mesaj: "" };
+
+const inputClass =
+  "w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3 text-sm text-[var(--color-text)] placeholder-[rgba(44,32,21,0.28)] outline-none focus:border-[#562F00] focus:ring-2 focus:ring-[rgba(86,47,0,0.15)] transition-colors";
+
+const labelClass = "block text-xs font-semibold tracking-wide text-[var(--color-text-muted)] uppercase mb-1.5";
 
 const DONATION_AMOUNTS = {
   RON: [35, 50, 75, 100],
@@ -28,6 +36,12 @@ const PARTENERIAT_TYPES = [
 ];
 
 export default function ImplicaTe() {
+  const [voluntarModalOpen, setVoluntarModalOpen] = useState(false);
+  const [voluntarForm, setVoluntarForm] = useState(EMPTY_VOLUNTAR);
+  const [voluntarSubmitting, setVoluntarSubmitting] = useState(false);
+  const [voluntarSuccess, setVoluntarSuccess] = useState(false);
+  const [voluntarError, setVoluntarError] = useState("");
+
   const [currency, setCurrency] = useState("RON");
   const [selectedAmount, setSelectedAmount] = useState(50);
   const [useCustom, setUseCustom] = useState(false);
@@ -45,6 +59,56 @@ export default function ImplicaTe() {
       }, 300);
     }
   }, []);
+
+  // Volunteer modal handlers
+  useEffect(() => {
+    if (voluntarModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [voluntarModalOpen]);
+
+  const openVoluntarModal = () => {
+    setVoluntarSuccess(false);
+    setVoluntarError("");
+    setVoluntarForm(EMPTY_VOLUNTAR);
+    setVoluntarModalOpen(true);
+  };
+
+  const closeVoluntarModal = () => {
+    setVoluntarModalOpen(false);
+    setVoluntarForm(EMPTY_VOLUNTAR);
+    setVoluntarSuccess(false);
+    setVoluntarError("");
+  };
+
+  const handleVoluntarField = (e) => {
+    const { name, value } = e.target;
+    setVoluntarForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleVoluntarSubmit = async (e) => {
+    e.preventDefault();
+    setVoluntarSubmitting(true);
+    setVoluntarError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ optiune: "Voluntariat ESME", ...voluntarForm }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Eroare necunoscută.");
+      setVoluntarSuccess(true);
+      setVoluntarForm(EMPTY_VOLUNTAR);
+    } catch (err) {
+      setVoluntarError(err.message || "A apărut o eroare. Încearcă din nou.");
+    } finally {
+      setVoluntarSubmitting(false);
+    }
+  };
 
   const handleCurrencyChange = (c) => {
     setCurrency(c);
@@ -108,7 +172,7 @@ export default function ImplicaTe() {
                   discuta pașii următori, în funcție de disponibilitate și aria ta de expertiză.
                 </p>
                 <div className="flex justify-center">
-                  <PillButton href="mailto:asociatia.esme@gmail.com?subject=Voluntariat%20ESME">
+                  <PillButton onClick={openVoluntarModal}>
                     Mă implic
                   </PillButton>
                 </div>
@@ -384,6 +448,197 @@ export default function ImplicaTe() {
           </Container>
         </section>
       </main>
+
+      {/* ── Voluntar Modal ── */}
+      <AnimatePresence>
+        {voluntarModalOpen && (
+          <>
+            <motion.div
+              key="voluntar-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 z-[60] bg-[rgba(17,12,8,0.45)] backdrop-blur-[3px]"
+              onClick={closeVoluntarModal}
+              aria-hidden="true"
+            />
+
+            <motion.div
+              key="voluntar-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Fii Voluntar!"
+              initial={{ opacity: 0, scale: 0.96, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 12 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed inset-0 z-[61] flex items-center justify-center p-4 pointer-events-none"
+            >
+              <div
+                className="section-shell relative w-full max-w-xl max-h-[90svh] overflow-y-auto pointer-events-auto flex flex-col gap-6"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close button */}
+                <button
+                  type="button"
+                  onClick={closeVoluntarModal}
+                  aria-label="Închide"
+                  className="focus-ring absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text-muted)] transition-colors hover:border-[#562F00] hover:text-[#562F00]"
+                >
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                </button>
+
+                {/* Title */}
+                <div className="pr-8">
+                  <h2 className="font-display text-xl md:text-2xl font-medium leading-snug text-[var(--color-text)]">
+                    Fii Voluntar!
+                  </h2>
+                  <p className="mt-1 font-body text-sm leading-[1.65] text-[var(--color-text-muted)]">
+                    Psiholog / Psihoterapeut / Consilier juridic
+                  </p>
+                </div>
+
+                {voluntarSuccess ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.97 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    className="flex flex-col items-center gap-4 py-6 text-center"
+                  >
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[rgba(86,47,0,0.08)]">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M5 13l4 4L19 7" stroke="#562F00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                    <p className="font-display text-lg font-medium text-[var(--color-text)]">
+                      Mesajul a fost trimis!
+                    </p>
+                    <p className="font-body text-sm leading-[1.65] text-[var(--color-text-muted)]">
+                      Te vom contacta în cel mai scurt timp posibil.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={closeVoluntarModal}
+                      className="focus-ring mt-2 font-body text-sm font-semibold text-[#562F00] underline-offset-4 hover:underline"
+                    >
+                      Închide
+                    </button>
+                  </motion.div>
+                ) : (
+                  <form onSubmit={handleVoluntarSubmit} className="flex flex-col gap-5" noValidate>
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <div>
+                        <label htmlFor="v-nume" className={labelClass}>Nume *</label>
+                        <input
+                          id="v-nume"
+                          name="nume"
+                          type="text"
+                          autoComplete="family-name"
+                          required
+                          value={voluntarForm.nume}
+                          onChange={handleVoluntarField}
+                          className={inputClass}
+                          placeholder="Popescu"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="v-prenume" className={labelClass}>Prenume *</label>
+                        <input
+                          id="v-prenume"
+                          name="prenume"
+                          type="text"
+                          autoComplete="given-name"
+                          required
+                          value={voluntarForm.prenume}
+                          onChange={handleVoluntarField}
+                          className={inputClass}
+                          placeholder="Maria"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <div>
+                        <label htmlFor="v-email" className={labelClass}>Email *</label>
+                        <input
+                          id="v-email"
+                          name="email"
+                          type="email"
+                          autoComplete="email"
+                          required
+                          value={voluntarForm.email}
+                          onChange={handleVoluntarField}
+                          className={inputClass}
+                          placeholder="exemplu@email.com"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="v-telefon" className={labelClass}>Telefon *</label>
+                        <input
+                          id="v-telefon"
+                          name="telefon"
+                          type="tel"
+                          autoComplete="tel"
+                          required
+                          value={voluntarForm.telefon}
+                          onChange={handleVoluntarField}
+                          className={inputClass}
+                          placeholder="07XX XXX XXX"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="v-mesaj" className={labelClass}>Cum vrei să te implici? *</label>
+                      <textarea
+                        id="v-mesaj"
+                        name="mesaj"
+                        rows={4}
+                        maxLength={500}
+                        required
+                        value={voluntarForm.mesaj}
+                        onChange={handleVoluntarField}
+                        className={`${inputClass} resize-none`}
+                        placeholder="Câteva cuvinte despre disponibilitatea ta..."
+                      />
+                      <p className="mt-1.5 font-body text-xs leading-[1.6] text-[var(--color-text-muted)]">
+                        Completează detalii despre disponibilitatea ta (zile și interval orar), tipurile de terapie oferite (individuală, cuplu, grup), specializarea ta și orice alte informații relevante (limbi străine, experiență specifică).
+                      </p>
+                    </div>
+
+                    {voluntarError && (
+                      <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                        {voluntarError}
+                      </p>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={voluntarSubmitting}
+                      className="focus-ring mt-1 flex w-full items-center justify-center rounded-full bg-[var(--color-accent)] px-8 py-3.5 text-[0.9375rem] font-semibold text-[var(--color-surface)] transition-colors hover:bg-[var(--color-accent-hover)] disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                      {voluntarSubmitting ? (
+                        <span className="flex items-center gap-2">
+                          <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                          </svg>
+                          Se trimite...
+                        </span>
+                      ) : (
+                        "Trimite"
+                      )}
+                    </button>
+                  </form>
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* ── Footer ── */}
       <footer className="border-t border-[var(--color-border)] py-10">
