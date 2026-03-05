@@ -492,14 +492,9 @@ export default function ImplicaTe() {
                 </button>
 
                 {/* Title */}
-                <div className="pr-8">
-                  <h2 className="font-display text-xl md:text-2xl font-medium leading-snug text-[var(--color-text)]">
-                    Fii Voluntar!
-                  </h2>
-                  <p className="mt-1 font-body text-sm leading-[1.65] text-[var(--color-text-muted)]">
-                    Psiholog / Psihoterapeut / Consilier juridic
-                  </p>
-                </div>
+                <h2 className="font-display text-xl md:text-2xl font-medium leading-snug text-[var(--color-text)] pr-8">
+                  Fii Voluntar!
+                </h2>
 
                 {voluntarSuccess ? (
                   <motion.div
