@@ -136,7 +136,7 @@ export default function DespreNoi() {
                           src={member.photo}
                           alt={member.name}
                           fill
-                          className="object-cover object-top"
+                          className="object-cover object-[50%_40%]"
                           sizes="(min-width: 768px) 33vw, 100vw"
                         />
                         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,16,12,0.08)_38%,rgba(20,16,12,0.62)_78%,rgba(20,16,12,0.86)_100%)]" />
