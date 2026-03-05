@@ -11,7 +11,7 @@ import LogoESME from "../../components/LogoESME";
 const EMPTY_VOLUNTAR = { nume: "", prenume: "", email: "", telefon: "", mesaj: "" };
 
 const inputClass =
-  "w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3 text-sm text-[var(--color-text)] placeholder-[rgba(44,32,21,0.28)] outline-none focus:border-[#562F00] focus:ring-2 focus:ring-[rgba(86,47,0,0.15)] transition-colors";
+  "w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-2.5 text-sm text-[var(--color-text)] placeholder-[rgba(44,32,21,0.28)] outline-none focus:border-[#562F00] focus:ring-2 focus:ring-[rgba(86,47,0,0.15)] transition-colors";
 
 const labelClass = "block text-xs font-semibold tracking-wide text-[var(--color-text-muted)] uppercase mb-1.5";
 
@@ -476,7 +476,7 @@ export default function ImplicaTe() {
               className="fixed inset-0 z-[61] flex items-center justify-center p-4 pointer-events-none"
             >
               <div
-                className="section-shell relative w-full max-w-xl max-h-[90svh] overflow-y-auto pointer-events-auto flex flex-col gap-6"
+                className="section-shell relative w-full max-w-xl max-h-[90svh] overflow-y-auto pointer-events-auto flex flex-col gap-3 sm:gap-6"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Close button */}
@@ -523,8 +523,8 @@ export default function ImplicaTe() {
                     </button>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleVoluntarSubmit} className="flex flex-col gap-5" noValidate>
-                    <div className="grid gap-5 sm:grid-cols-2">
+                  <form onSubmit={handleVoluntarSubmit} className="flex flex-col gap-2.5 sm:gap-5" noValidate>
+                    <div className="grid grid-cols-2 gap-2.5 sm:gap-5">
                       <div>
                         <label htmlFor="v-nume" className={labelClass}>Nume *</label>
                         <input
@@ -555,7 +555,7 @@ export default function ImplicaTe() {
                       </div>
                     </div>
 
-                    <div className="grid gap-5 sm:grid-cols-2">
+                    <div className="grid grid-cols-2 gap-2.5 sm:gap-5">
                       <div>
                         <label htmlFor="v-email" className={labelClass}>Email *</label>
                         <input
@@ -591,7 +591,7 @@ export default function ImplicaTe() {
                       <textarea
                         id="v-mesaj"
                         name="mesaj"
-                        rows={4}
+                        rows={3}
                         maxLength={500}
                         required
                         value={voluntarForm.mesaj}
@@ -599,7 +599,7 @@ export default function ImplicaTe() {
                         className={`${inputClass} resize-none`}
                         placeholder="Câteva cuvinte despre disponibilitatea ta..."
                       />
-                      <p className="mt-1.5 font-body text-xs leading-[1.6] text-[var(--color-text-muted)]">
+                      <p className="hidden sm:block mt-1.5 font-body text-xs leading-[1.6] text-[var(--color-text-muted)]">
                         Completează detalii despre disponibilitatea ta (zile și interval orar), tipurile de terapie oferite (individuală, cuplu, grup), specializarea ta și orice alte informații relevante (limbi străine, experiență specifică).
                       </p>
                     </div>
