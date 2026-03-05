@@ -185,49 +185,48 @@ export default function ImplicaTe() {
 
               {/* ── Donation card ── */}
               <ScrollReveal delay={0.15}>
-                <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-[0_1px_0_rgba(58,36,18,0.04)] space-y-6">
+                <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white p-6 shadow-[0_2px_16px_rgba(58,36,18,0.08),inset_0_0_0_1px_rgba(58,36,18,0.04)] space-y-6">
                   <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)]">
                     Dacă dorești să sprijini activitatea noastră, poți efectua un transfer bancar folosind datele de mai jos.
                   </p>
 
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-x-8 gap-y-4">
-                      <div>
-                        <p className="font-body text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-1">Beneficiar</p>
-                        <p className="font-body text-sm font-medium text-[var(--color-text)]">Asociația ESME</p>
-                      </div>
-                      <div>
-                        <p className="font-body text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-1">Bancă</p>
-                        <p className="font-body text-sm font-medium text-[var(--color-text)]">BCR</p>
-                      </div>
-                      <div className="col-span-2">
-                        <p className="font-body text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-1">IBAN</p>
-                        <p className="font-body text-sm font-medium tracking-wide text-[var(--color-text)] break-all">{IBAN}</p>
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                    <div>
+                      <p className="font-body text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-1">Beneficiar</p>
+                      <p className="font-body text-sm font-medium text-[var(--color-text)]">Asociația ESME</p>
+                    </div>
+                    <div>
+                      <p className="font-body text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-1">Bancă</p>
+                      <p className="font-body text-sm font-medium text-[var(--color-text)]">Banca Comercială Română S.A.</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="font-body text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-2">IBAN</p>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <p className="font-body text-sm font-medium tracking-wide text-[var(--color-text)]">{IBAN}</p>
+                        <button
+                          type="button"
+                          onClick={copyIban}
+                          className="focus-ring inline-flex items-center gap-1.5 rounded-full bg-[var(--color-accent)] px-3.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[var(--color-accent-hover)] shrink-0"
+                        >
+                          {ibanCopied ? (
+                            <>
+                              <svg width="12" height="12" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                                <path d="M2 8l4 4 7-7" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                              </svg>
+                              Copiat!
+                            </>
+                          ) : (
+                            <>
+                              <svg width="12" height="12" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                                <rect x="5" y="1" width="9" height="11" rx="1.5" stroke="white" strokeWidth="1.25" />
+                                <path d="M10 4H2.5A1.5 1.5 0 0 0 1 5.5v8A1.5 1.5 0 0 0 2.5 15H10a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 10 4Z" stroke="white" strokeWidth="1.25" fill="var(--color-accent)" />
+                              </svg>
+                              Copiază IBAN
+                            </>
+                          )}
+                        </button>
                       </div>
                     </div>
-
-                    <button
-                      type="button"
-                      onClick={copyIban}
-                      className="focus-ring inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface-strong)] px-5 py-2.5 text-sm font-semibold text-[var(--color-text)] transition-all hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-                    >
-                      {ibanCopied ? (
-                        <>
-                          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-                            <path d="M2 8l4 4 7-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                          Copiat!
-                        </>
-                      ) : (
-                        <>
-                          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-                            <rect x="5" y="1" width="9" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.25" />
-                            <path d="M10 4H2.5A1.5 1.5 0 0 0 1 5.5v8A1.5 1.5 0 0 0 2.5 15H10a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 10 4Z" stroke="currentColor" strokeWidth="1.25" fill="var(--color-surface)" />
-                          </svg>
-                          Copiază IBAN
-                        </>
-                      )}
-                    </button>
                   </div>
 
                   <p className="font-body text-xs leading-[1.6] text-[var(--color-text-muted)]">
