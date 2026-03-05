@@ -15,17 +15,7 @@ const inputClass =
 
 const labelClass = "block text-xs font-semibold tracking-wide text-[var(--color-text-muted)] uppercase mb-1.5";
 
-const DONATION_AMOUNTS = {
-  RON: [35, 50, 75, 100],
-  EUR: [10, 20, 35, 50],
-};
-
-const CAMPANII = [
-  "Sprijin psihologic",
-  "Consiliere juridică",
-  "Adăpost integrat",
-  "Psihoeducație",
-];
+const IBAN = "RO03RNCB0296015075940042";
 
 const PARTENERIAT_TYPES = [
   "Donație financiară (unică sau recurentă)",
@@ -42,14 +32,7 @@ export default function ImplicaTe() {
   const [voluntarSuccess, setVoluntarSuccess] = useState(false);
   const [voluntarError, setVoluntarError] = useState("");
 
-  const [currency, setCurrency] = useState("RON");
-  const [selectedAmount, setSelectedAmount] = useState(50);
-  const [useCustom, setUseCustom] = useState(false);
-  const [customAmount, setCustomAmount] = useState("");
-  const [prenume, setPrenume] = useState("");
-  const [email, setEmail] = useState("");
-  const [telefon, setTelefon] = useState("");
-  const [campanie, setCampanie] = useState("");
+  const [ibanCopied, setIbanCopied] = useState(false);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -110,10 +93,10 @@ export default function ImplicaTe() {
     }
   };
 
-  const handleCurrencyChange = (c) => {
-    setCurrency(c);
-    setSelectedAmount(DONATION_AMOUNTS[c][1]);
-    setUseCustom(false);
+  const copyIban = async () => {
+    await navigator.clipboard.writeText(IBAN);
+    setIbanCopied(true);
+    setTimeout(() => setIbanCopied(false), 2000);
   };
 
   return (
@@ -202,177 +185,54 @@ export default function ImplicaTe() {
 
               {/* ── Donation card ── */}
               <ScrollReveal delay={0.15}>
-                <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-[0_1px_0_rgba(58,36,18,0.04)]">
+                <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-[0_1px_0_rgba(58,36,18,0.04)] space-y-6">
+                  <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)]">
+                    Dacă dorești să sprijini activitatea noastră, poți efectua un transfer bancar folosind datele de mai jos.
+                  </p>
+
                   <div className="space-y-4">
-                    <div className="space-y-3">
-                      <p className="font-body text-xs font-medium tracking-[0.12em] uppercase text-[var(--color-text-muted)]">Suma donației</p>
-
-                      {/* Currency tabs */}
-                      <div className="inline-flex rounded-full border border-[var(--color-border)] bg-[var(--color-surface-strong)] p-1">
-                        {["RON", "EUR"].map((c) => (
-                          <button
-                            key={c}
-                            type="button"
-                            onClick={() => handleCurrencyChange(c)}
-                            className={`focus-ring rounded-full px-5 py-1 text-sm font-semibold tracking-wide transition-colors ${
-                              currency === c
-                                ? "bg-[var(--color-accent)] text-[var(--color-surface)]"
-                                : "text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-                            }`}
-                          >
-                            {c}
-                          </button>
-                        ))}
+                    <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                      <div>
+                        <p className="font-body text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-1">Beneficiar</p>
+                        <p className="font-body text-sm font-medium text-[var(--color-text)]">Asociația ESME</p>
                       </div>
-
-                      {/* Amount buttons */}
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                        {DONATION_AMOUNTS[currency].map((amount) => (
-                          <button
-                            key={amount}
-                            type="button"
-                            onClick={() => {
-                              setSelectedAmount(amount);
-                              setUseCustom(false);
-                            }}
-                            className={`focus-ring rounded-xl border py-2.5 text-sm font-semibold transition-all ${
-                              !useCustom && selectedAmount === amount
-                                ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-surface)]"
-                                : "border-[var(--color-border)] text-[var(--color-text)] hover:border-[var(--color-accent-soft)] hover:bg-[var(--color-surface-strong)]"
-                            }`}
-                          >
-                            {amount} {currency}
-                          </button>
-                        ))}
+                      <div>
+                        <p className="font-body text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-1">Bancă</p>
+                        <p className="font-body text-sm font-medium text-[var(--color-text)]">BCR</p>
                       </div>
-
-                      {/* Custom amount */}
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setUseCustom(true)}
-                          className={`focus-ring whitespace-nowrap rounded-xl border px-4 py-2.5 text-sm font-semibold transition-all ${
-                            useCustom
-                              ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-surface)]"
-                              : "border-[var(--color-border)] text-[var(--color-text)] hover:border-[var(--color-accent-soft)]"
-                          }`}
-                        >
-                          ALTĂ SUMĂ {currency}
-                        </button>
-                        <input
-                          type="number"
-                          value={customAmount}
-                          onChange={(e) => setCustomAmount(e.target.value)}
-                          placeholder={`0 ${currency}`}
-                          disabled={!useCustom}
-                          className="flex-1 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2.5 text-sm text-[var(--color-text)] outline-none transition-colors focus:border-[var(--color-text-muted)] disabled:opacity-40"
-                        />
+                      <div className="col-span-2">
+                        <p className="font-body text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-1">IBAN</p>
+                        <p className="font-body text-sm font-medium tracking-wide text-[var(--color-text)] break-all">{IBAN}</p>
                       </div>
                     </div>
 
-                    <hr className="border-[var(--color-border)]" />
-
-                    {/* Form */}
-                    <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
-                      <div className="grid gap-3 sm:grid-cols-2">
-                        {[
-                          { id: "prenume", label: "Prenume", type: "text", value: prenume, setter: setPrenume },
-                          { id: "email", label: "Adresă email", type: "email", value: email, setter: setEmail },
-                          { id: "telefon", label: "Telefon", type: "tel", value: telefon, setter: setTelefon },
-                        ].map(({ id, label, type, value, setter }) => (
-                          <div key={id}>
-                            <label
-                              htmlFor={id}
-                              className="font-body text-xs font-medium tracking-[0.12em] uppercase mb-1 block text-[var(--color-text-muted)]"
-                            >
-                              {label}
-                            </label>
-                            <input
-                              id={id}
-                              type={type}
-                              value={value}
-                              onChange={(e) => setter(e.target.value)}
-                              className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-3.5 py-2.5 text-sm text-[var(--color-text)] outline-none transition-colors focus:border-[var(--color-text-muted)]"
-                            />
-                          </div>
-                        ))}
-
-                        <div>
-                          <label
-                            htmlFor="campanie"
-                            className="font-body text-xs font-medium tracking-[0.12em] uppercase mb-1 block text-[var(--color-text-muted)]"
-                          >
-                            Selectați campania
-                          </label>
-                          <div className="relative">
-                            <select
-                              id="campanie"
-                              value={campanie}
-                              onChange={(e) => setCampanie(e.target.value)}
-                              className="w-full appearance-none rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-3.5 py-2.5 text-sm text-[var(--color-text)] outline-none transition-colors focus:border-[var(--color-text-muted)]"
-                            >
-                              <option value="">Selectați...</option>
-                              {CAMPANII.map((c) => (
-                                <option key={c} value={c}>
-                                  {c}
-                                </option>
-                              ))}
-                            </select>
-                            <svg
-                              className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-text-muted)]"
-                              viewBox="0 0 16 16"
-                              fill="none"
-                            >
-                              <path
-                                d="M4 6l4 4 4-4"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* reCAPTCHA placeholder */}
-                      <div className="flex items-center gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-strong)] px-4 py-2.5">
-                        <div className="h-5 w-5 shrink-0 rounded border-2 border-[var(--color-border)] bg-[var(--color-surface)]" />
-                        <span className="font-body text-sm leading-[1.65] text-[var(--color-text-muted)]">
-                          Nu sunt un robot
-                        </span>
-                        <div className="ml-auto flex flex-col items-center gap-0.5 text-center">
-                          <svg
-                            width="26"
-                            height="26"
-                            viewBox="0 0 64 64"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            aria-hidden="true"
-                          >
-                            <path
-                              d="M32 4C16.536 4 4 16.536 4 32s12.536 28 28 28 28-12.536 28-28S47.464 4 32 4zm0 6c4.56 0 8.784 1.4 12.24 3.78L13.78 44.24A21.88 21.88 0 0 1 10 32c0-12.15 9.85-22 22-22zm0 44c-4.56 0-8.784-1.4-12.24-3.78l30.46-30.46A21.88 21.88 0 0 1 54 32c0 12.15-9.85 22-22 22z"
-                              fill="#4A8CF7"
-                              opacity="0.55"
-                            />
+                    <button
+                      type="button"
+                      onClick={copyIban}
+                      className="focus-ring inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface-strong)] px-5 py-2.5 text-sm font-semibold text-[var(--color-text)] transition-all hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+                    >
+                      {ibanCopied ? (
+                        <>
+                          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                            <path d="M2 8l4 4 7-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
-                          <span className="text-[0.55rem] leading-tight text-[var(--color-text-muted)]">
-                            reCAPTCHA
-                          </span>
-                          <span className="text-[0.5rem] leading-tight text-[var(--color-text-muted)] opacity-60">
-                            Privacy · Terms
-                          </span>
-                        </div>
-                      </div>
-
-                      <button
-                        type="submit"
-                        className="focus-ring w-full rounded-full bg-[var(--color-accent)] py-3.5 text-sm font-semibold tracking-[0.01em] text-[var(--color-surface)] transition-colors hover:bg-[var(--color-accent-hover)]"
-                      >
-                        Donează online
-                      </button>
-                    </form>
+                          Copiat!
+                        </>
+                      ) : (
+                        <>
+                          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                            <rect x="5" y="1" width="9" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.25" />
+                            <path d="M10 4H2.5A1.5 1.5 0 0 0 1 5.5v8A1.5 1.5 0 0 0 2.5 15H10a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 10 4Z" stroke="currentColor" strokeWidth="1.25" fill="var(--color-surface)" />
+                          </svg>
+                          Copiază IBAN
+                        </>
+                      )}
+                    </button>
                   </div>
+
+                  <p className="font-body text-xs leading-[1.6] text-[var(--color-text-muted)]">
+                    Donațiile sunt utilizate pentru proiectele și programele Asociației ESME.
+                  </p>
                 </div>
               </ScrollReveal>
             </div>
