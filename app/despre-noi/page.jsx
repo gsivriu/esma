@@ -131,7 +131,7 @@ export default function DespreNoi() {
                   <ScrollReveal key={member.name} delay={i * 0.1}>
                     <article className="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface)]">
                       {/* Poza */}
-                      <div className="relative aspect-[4/5] w-full overflow-hidden">
+                      <div className="relative aspect-[1/1] w-full overflow-hidden">
                         <Image
                           src={member.photo}
                           alt={member.name}
@@ -139,6 +139,7 @@ export default function DespreNoi() {
                           className="object-cover object-top"
                           sizes="(min-width: 768px) 33vw, 100vw"
                         />
+                        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,16,12,0.08)_38%,rgba(20,16,12,0.62)_78%,rgba(20,16,12,0.86)_100%)]" />
                       </div>
                       {/* Continut */}
                       <div className="p-6 md:p-8 space-y-4">
