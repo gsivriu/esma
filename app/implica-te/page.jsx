@@ -185,7 +185,7 @@ export default function ImplicaTe() {
 
               {/* ── Donation card ── */}
               <ScrollReveal delay={0.15}>
-                <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white p-6 shadow-[0_2px_16px_rgba(58,36,18,0.08),inset_0_0_0_1px_rgba(58,36,18,0.04)] space-y-6">
+                <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[#FDFAF7] p-6 shadow-[0_2px_16px_rgba(58,36,18,0.08),inset_0_0_0_1px_rgba(58,36,18,0.04)] space-y-6">
                   <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)]">
                     Dacă dorești să sprijini activitatea noastră, poți efectua un transfer bancar folosind datele de mai jos.
                   </p>
