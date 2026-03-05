@@ -473,10 +473,10 @@ export default function ImplicaTe() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 12 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed inset-0 z-[61] flex items-center justify-center p-4 pointer-events-none"
+              className="fixed inset-0 z-[61] flex items-center justify-center p-3 sm:p-6 pointer-events-none"
             >
               <div
-                className="section-shell relative w-full max-w-xl max-h-[90svh] overflow-y-auto pointer-events-auto flex flex-col gap-3 sm:gap-6"
+                className="section-shell relative w-full max-w-4xl max-h-[94svh] overflow-y-auto pointer-events-auto flex flex-col gap-3 sm:gap-6"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Close button */}
@@ -524,7 +524,7 @@ export default function ImplicaTe() {
                   </motion.div>
                 ) : (
                   <form onSubmit={handleVoluntarSubmit} className="flex flex-col gap-2.5 sm:gap-5" noValidate>
-                    <div className="grid grid-cols-2 gap-2.5 sm:gap-5">
+                    <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-5">
                       <div>
                         <label htmlFor="v-nume" className={labelClass}>Nume *</label>
                         <input
@@ -555,7 +555,7 @@ export default function ImplicaTe() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2.5 sm:gap-5">
+                    <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-5">
                       <div>
                         <label htmlFor="v-email" className={labelClass}>Email *</label>
                         <input
@@ -591,7 +591,7 @@ export default function ImplicaTe() {
                       <textarea
                         id="v-mesaj"
                         name="mesaj"
-                        rows={3}
+                        rows={4}
                         maxLength={500}
                         required
                         value={voluntarForm.mesaj}
@@ -599,7 +599,7 @@ export default function ImplicaTe() {
                         className={`${inputClass} resize-none`}
                         placeholder="Câteva cuvinte despre disponibilitatea ta..."
                       />
-                      <p className="hidden sm:block mt-1.5 font-body text-xs leading-[1.6] text-[var(--color-text-muted)]">
+                      <p className="mt-1.5 font-body text-xs leading-[1.6] text-[var(--color-text-muted)]">
                         Completează detalii despre disponibilitatea ta (zile și interval orar), tipurile de terapie oferite (individuală, cuplu, grup), specializarea ta și orice alte informații relevante (limbi străine, experiență specifică).
                       </p>
                     </div>

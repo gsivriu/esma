@@ -36,7 +36,11 @@
       "Bash(git add components/landing/LandingPage.jsx)",
       "Bash(curl -s \"http://127.0.0.1:3000/_next/static/css/app/layout.css\")",
       "Bash(curl -s \"http://127.0.0.1:3000/_next/static/css/app/layout.css?v=1772320607779\")",
-      "Bash(gh repo create ameropa-multiverse --private --source=. --remote=origin --push)"
+      "Bash(gh repo create ameropa-multiverse --private --source=. --remote=origin --push)",
+      "Bash(git add components/landing/LandingPage.jsx app/despre-noi/page.jsx)",
+      "Bash(git push origin main)",
+      "Bash(xargs ps -p)",
+      "Bash(npm run build)"
     ]
   }
 }
