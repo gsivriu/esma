@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Check, Copy } from "lucide-react";
 import Link from "next/link";
 import Container from "../../components/ui/Container";
 import PillButton from "../../components/ui/PillButton";
@@ -185,51 +186,38 @@ export default function ImplicaTe() {
 
               {/* ── Donation card ── */}
               <ScrollReveal delay={0.15}>
-                <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[#FDFAF7] p-6 shadow-[0_2px_16px_rgba(58,36,18,0.08),inset_0_0_0_1px_rgba(58,36,18,0.04)] space-y-6">
-                  <p className="font-body text-base leading-[1.7] text-[var(--color-text-muted)]">
+                <div className="max-w-2xl mx-auto rounded-2xl bg-[#FDFAF7] shadow-[0_4px_40px_-12px_rgba(44,32,21,0.12)] p-8 md:p-10">
+                  <p className="font-body text-sm md:text-base text-[var(--color-text-muted)] leading-relaxed mb-8">
                     Dacă dorești să sprijini activitatea noastră, poți efectua un transfer bancar folosind datele de mai jos.
                   </p>
 
-                  <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
                     <div>
-                      <p className="font-body text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-1">Beneficiar</p>
+                      <p className="font-body text-[11px] tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-1.5">Beneficiar</p>
                       <p className="font-body text-sm font-medium text-[var(--color-text)]">Asociația ESME</p>
                     </div>
                     <div>
-                      <p className="font-body text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-1">Bancă</p>
+                      <p className="font-body text-[11px] tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-1.5">Bancă</p>
                       <p className="font-body text-sm font-medium text-[var(--color-text)]">Banca Comercială Română S.A.</p>
-                    </div>
-                    <div className="col-span-2">
-                      <p className="font-body text-xs font-semibold tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-2">IBAN</p>
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <p className="font-body text-sm font-medium tracking-wide text-[var(--color-text)]">{IBAN}</p>
-                        <button
-                          type="button"
-                          onClick={copyIban}
-                          className="focus-ring inline-flex items-center gap-1.5 rounded-full bg-[var(--color-accent)] px-3.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[var(--color-accent-hover)] shrink-0"
-                        >
-                          {ibanCopied ? (
-                            <>
-                              <svg width="12" height="12" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-                                <path d="M2 8l4 4 7-7" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                              </svg>
-                              Copiat!
-                            </>
-                          ) : (
-                            <>
-                              <svg width="12" height="12" viewBox="0 0 15 15" fill="none" aria-hidden="true">
-                                <rect x="5" y="1" width="9" height="11" rx="1.5" stroke="white" strokeWidth="1.25" />
-                                <path d="M10 4H2.5A1.5 1.5 0 0 0 1 5.5v8A1.5 1.5 0 0 0 2.5 15H10a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 10 4Z" stroke="white" strokeWidth="1.25" fill="var(--color-accent)" />
-                              </svg>
-                              Copiază IBAN
-                            </>
-                          )}
-                        </button>
-                      </div>
                     </div>
                   </div>
 
-                  <p className="font-body text-xs leading-[1.6] text-[var(--color-text-muted)]">
+                  <div className="mb-8">
+                    <p className="font-body text-[11px] tracking-[0.2em] uppercase text-[var(--color-text-muted)] mb-2">IBAN</p>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <p className="font-body text-sm md:text-base font-medium text-[var(--color-text)] tracking-wide">{IBAN}</p>
+                      <button
+                        type="button"
+                        onClick={copyIban}
+                        className="focus-ring inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--color-accent)] text-white font-body text-xs tracking-wide transition-all duration-300 hover:bg-[var(--color-accent-hover)] hover:scale-105"
+                      >
+                        {ibanCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                        {ibanCopied ? "Copiat!" : "Copiază IBAN"}
+                      </button>
+                    </div>
+                  </div>
+
+                  <p className="font-body text-xs text-[var(--color-text-muted)] leading-relaxed">
                     Donațiile sunt utilizate pentru proiectele și programele Asociației ESME.
                   </p>
                 </div>
