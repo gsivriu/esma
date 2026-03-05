@@ -99,16 +99,6 @@ const FOOTER_LINK_GROUPS = [
     ],
   },
   {
-    title: "Resurse",
-    mobileHidden: true,
-    links: [
-      { label: "Ce oferim", href: "#ce-oferim" },
-      { label: "Amploarea fenomenului", href: "#amploare-fenomen" },
-      { label: "Echipa", href: "#echipa" },
-      { label: "În presă", href: "#presa" },
-    ],
-  },
-  {
     title: "Conectare",
     links: [
       { label: "Email", href: "mailto:asociatia.esme@gmail.com" },
@@ -126,19 +116,7 @@ const FOOTER_LINK_GROUPS = [
     links: [
       {
         label: "Politică de confidențialitate",
-        href: "mailto:asociatia.esme@gmail.com?subject=Politic%C4%83%20de%20confiden%C8%9Bialitate",
-      },
-      {
-        label: "Termeni și condiții",
-        href: "mailto:asociatia.esme@gmail.com?subject=Termeni%20%C8%99i%20condi%C8%9Bii",
-      },
-      {
-        label: "Politica cookie",
-        href: "mailto:asociatia.esme@gmail.com?subject=Politica%20cookie",
-      },
-      {
-        label: "Accesibilitate",
-        href: "mailto:asociatia.esme@gmail.com?subject=Accesibilitate",
+        href: "/politica-de-confidentialitate",
       },
     ],
   },
@@ -509,36 +487,19 @@ export default function LandingPage() {
                 <article
                   key={member.name}
                   data-stagger-item
-                  className="group relative isolate md:min-h-[460px] md:[perspective:1400px]"
+                  className="relative isolate min-h-[460px] overflow-hidden rounded-[2rem] border border-[var(--color-border)]"
                 >
-                  <div className="flex flex-col md:relative md:h-full md:min-h-[460px] w-full md:[transform:translateZ(0)] md:transition-transform md:duration-700 md:ease-[cubic-bezier(0.22,1,0.36,1)] md:[transform-style:preserve-3d] md:[-webkit-transform-style:preserve-3d] md:will-change-transform md:group-hover:[transform:rotateY(180deg)]">
-                    <div className="relative h-[480px] md:h-auto md:aspect-auto md:absolute md:inset-0 z-[2] overflow-hidden rounded-t-[2rem] md:rounded-[2rem] border border-b-0 md:border-b border-[var(--color-border)] md:opacity-100 md:transition-opacity md:duration-200 md:ease-out md:group-hover:opacity-0 md:[transform:rotateY(0deg)_translateZ(0.1px)] md:[backface-visibility:hidden] md:[-webkit-backface-visibility:hidden]">
-                      <Image
-                        src={member.photo}
-                        alt={member.name}
-                        fill
-                        className="object-cover object-top [backface-visibility:hidden] [-webkit-backface-visibility:hidden]"
-                        sizes="(min-width: 768px) 33vw, 100vw"
-                      />
-                      <div className="absolute inset-0 [backface-visibility:hidden] [-webkit-backface-visibility:hidden] bg-[linear-gradient(180deg,rgba(20,16,12,0.08)_38%,rgba(20,16,12,0.62)_78%,rgba(20,16,12,0.86)_100%)]" />
-                      <div className="absolute inset-x-0 bottom-0 px-6 pb-5 md:pb-7 pt-0 text-left [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
-                        <p className="font-body text-xs font-medium tracking-[0.12em] uppercase mb-1.5 text-[rgba(247,239,230,0.55)]">{member.role}</p>
-                        <h3 className="font-body text-lg font-medium leading-tight text-[var(--color-text-inverse)]">{member.name}</h3>
-                      </div>
-                    </div>
-
-                    <div className="relative flex flex-col md:absolute md:inset-0 md:z-[3] md:h-full md:justify-center rounded-b-[2rem] md:rounded-[2rem] border border-t-0 md:border-t border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-6 md:px-8 md:py-10 text-left md:opacity-0 md:transition-opacity md:duration-200 md:ease-out md:group-hover:opacity-100 md:[backface-visibility:hidden] md:[-webkit-backface-visibility:hidden] md:[transform:rotateY(180deg)_translateZ(0.1px)]">
-                      <div>
-                        <p className="font-body text-base leading-[1.75] text-[var(--color-text-muted)]">
-                          {member.story}
-                        </p>
-                        <div
-                          aria-hidden="true"
-                          className="mt-[22px] h-px w-[176px]"
-                          style={{ background: "linear-gradient(to right, #C17F3E, transparent)" }}
-                        />
-                      </div>
-                    </div>
+                  <Image
+                    src={member.photo}
+                    alt={member.name}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,16,12,0.08)_38%,rgba(20,16,12,0.62)_78%,rgba(20,16,12,0.86)_100%)]" />
+                  <div className="absolute inset-x-0 bottom-0 px-6 pb-5 md:pb-7 pt-0 text-left">
+                    <p className="font-body text-xs font-medium tracking-[0.12em] uppercase mb-1.5 text-[rgba(247,239,230,0.55)]">{member.role}</p>
+                    <h3 className="font-body text-lg font-medium leading-tight text-[var(--color-text-inverse)]">{member.name}</h3>
                   </div>
                 </article>
               ))}
@@ -614,8 +575,8 @@ export default function LandingPage() {
               ))}
             </div>
 
-            {/* Desktop: all 4 columns */}
-            <div className="mx-auto hidden lg:grid max-w-6xl gap-x-14 gap-y-10 text-left lg:grid-cols-4">
+            {/* Desktop: 3 columns */}
+            <div className="mx-auto hidden lg:grid max-w-6xl gap-x-14 gap-y-10 text-left lg:grid-cols-3">
               {FOOTER_LINK_GROUPS.map((group) => (
                 <div key={group.title} className="space-y-4">
                   <h3 className="font-body text-base leading-[1.7] font-display font-medium text-[var(--color-text)]">

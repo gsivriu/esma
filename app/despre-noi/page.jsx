@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Container from "../../components/ui/Container";
 import LogoESME from "../../components/LogoESME";
 import ScrollReveal from "../../components/ui/ScrollReveal";
@@ -8,6 +9,30 @@ export const metadata = {
   description:
     "Povestea noastră: cum s-a născut ESME și ce ne propunem să facem pentru victimele violenței domestice.",
 };
+
+const TEAM = [
+  {
+    name: "Silviana Adam",
+    role: "Psiholog",
+    photo: "/team/Silviana.jpeg?v=20260219-1",
+    story:
+      "Sunt Silviana Adam, psihoterapeut și femeie. În practica mea, cred în puterea unui spațiu sigur, un loc în care nu trebuie să demonstrezi nimic și nu trebuie să fii altfel decât ești. Un spațiu în care poți să încetinești, să respiri și să te auzi cu adevărat. Consider că vindecarea nu înseamnă să devii mai puternic/ă, ci să te simți suficient de în siguranță încât să fii tu. Să îți recapeți treptat încrederea în propriile trăiri, în propriile limite, în propria voce.",
+  },
+  {
+    name: "Mihaela Cima",
+    role: "Psiholog",
+    photo: "/team/Mihaela.jpeg?v=20260219-1",
+    story:
+      "'Fă tot ce îți stă în putință și asta va fi de-ajuns' este credința care îmi așază pașii, zi de zi. În practica mea, aleg să fiu prezentă cu tot ceea ce sunt, să sprijin, să ghidez, să fac loc. Cred în puterea unui spațiu sigur, în care oamenii pot să respire, să se așeze și să crească în ritmul lor. Fac tot ce îmi stă în putință, cu blândețe și responsabilitate, iar apoi am încredere că acest „destul” este, de fapt, începutul transformării.",
+  },
+  {
+    name: "Vlad Diaconu",
+    role: "Asistent Social",
+    photo: "/team/Vlad.jpeg?v=20260219-1",
+    story:
+      "Vlad susține procesele de stabilizare și direcționare către resursele potrivite, astfel încât fiecare persoană să știe ce urmează și unde găsește sprijin real.",
+  },
+];
 
 const PILLARS = [
   {
@@ -86,6 +111,55 @@ export default function DespreNoi() {
                         {pillar.body}
                       </p>
                     </div>
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
+            {/* ── Echipa noastră ── */}
+            <div className="mt-20 md:mt-40 pb-16 md:pb-28">
+              <ScrollReveal delay={0}>
+                <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-normal leading-tight text-left sm:text-center text-[var(--color-text)]">
+                  Echipa noastră
+                </h2>
+                <p className="mt-4 font-body text-base leading-[1.7] text-[var(--color-text-muted)] text-left sm:text-center max-w-[52ch] sm:mx-auto">
+                  O echipă interdisciplinară dedicată sprijinului constant pentru femeile afectate de abuz domestic.
+                </p>
+              </ScrollReveal>
+
+              <div className="mt-10 sm:mt-14 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                {TEAM.map((member, i) => (
+                  <ScrollReveal key={member.name} delay={i * 0.1}>
+                    <article className="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface)]">
+                      {/* Poza */}
+                      <div className="relative aspect-[4/5] w-full overflow-hidden">
+                        <Image
+                          src={member.photo}
+                          alt={member.name}
+                          fill
+                          className="object-cover object-top"
+                          sizes="(min-width: 768px) 33vw, 100vw"
+                        />
+                      </div>
+                      {/* Continut */}
+                      <div className="p-6 md:p-8 space-y-4">
+                        <div>
+                          <p className="font-body text-xs font-medium tracking-[0.15em] uppercase text-[var(--color-text-muted)] mb-1.5">
+                            {member.role}
+                          </p>
+                          <h3 className="font-display text-xl md:text-2xl font-medium leading-snug text-[var(--color-text)]">
+                            {member.name}
+                          </h3>
+                        </div>
+                        <div
+                          aria-hidden="true"
+                          className="h-px w-10"
+                          style={{ background: "linear-gradient(to right, #C17F3E, transparent)" }}
+                        />
+                        <p className="font-body text-sm leading-[1.8] text-[var(--color-text-muted)]">
+                          {member.story}
+                        </p>
+                      </div>
+                    </article>
                   </ScrollReveal>
                 ))}
               </div>
