@@ -41,12 +41,14 @@ export async function POST(request) {
       html,
     });
 
-    if (error) throw error;
+    if (error) throw new Error(JSON.stringify(error));
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (err) {
+    const message = err?.message || "Eroare necunoscută.";
+    console.error("[contact API]", message);
     return NextResponse.json(
-      { error: "Eroare la trimiterea mesajului." },
+      { error: message },
       { status: 500 }
     );
   }
