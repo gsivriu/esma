@@ -100,6 +100,16 @@ export default function ImplicaTe() {
     setTimeout(() => setIbanCopied(false), 2000);
   };
 
+  // Load Formular 230 embed script (Method 3 — renders inside .f230ro-formular)
+  useEffect(() => {
+    const SRC = "https://formular230.ro/share/9de412a4007";
+    if (document.querySelector(`script[src="${SRC}"]`)) return;
+    const script = document.createElement("script");
+    script.src = SRC;
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[var(--color-surface)]">
       <main className="pt-[var(--header-h)]">
@@ -289,6 +299,22 @@ export default function ImplicaTe() {
                   <PillButton href="mailto:asociatia.esme@gmail.com?subject=Parteneriat%20ESME">
                     Mă implic ca partener!
                   </PillButton>
+                </div>
+              </ScrollReveal>
+
+              {/* ── Formular 230 ── */}
+              <ScrollReveal delay={0.4}>
+                <div className="mt-12 rounded-2xl bg-[#FDFAF7] shadow-[0_4px_40px_-12px_rgba(44,32,21,0.12)] p-6 md:p-8">
+                  <p className="font-body text-xs font-medium tracking-[0.2em] uppercase text-[var(--color-text-muted)] text-center mb-4">
+                    Redirecționează prin Formularul 230
+                  </p>
+                  <h3 className="font-display text-2xl md:text-3xl font-medium leading-snug text-[var(--color-text)] text-center mb-4">
+                    Direcționează până la 3,5% din impozit
+                  </h3>
+                  <p className="font-body text-sm md:text-base leading-[1.7] text-[var(--color-text-muted)] text-center mb-6">
+                    Completează formularul de mai jos — îl trimitem noi mai departe, fără costuri pentru tine.
+                  </p>
+                  <div className="f230ro-formular" />
                 </div>
               </ScrollReveal>
             </div>
